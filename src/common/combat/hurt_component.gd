@@ -5,7 +5,6 @@ extends CombatArea3D
 
 signal damage_taken(amount: float, source: HitComponent3D)
 
-@export var team: Team
 ## Any incoming damage lower or equal to this threshold will be ignored.
 @export var damage_detection_threshold: float
 

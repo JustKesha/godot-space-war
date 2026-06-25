@@ -1,18 +1,11 @@
-@icon("uid://c0hhedisi05ok")
+@icon("uid://clnmc1wtig47a")
 class_name HitComponent3D
 extends CombatArea3D
 
 
 signal hit(hurt_component: HurtComponent3D)
-signal team_changed(new_team: Team)
 signal damage_changed(new_damage: float)
 
-@export var team: Team:
-	set(value):
-		if value == team:
-			return
-		team = value
-		team_changed.emit(team)
 @export var damage: float:
 	set(value):
 		if value == damage:
