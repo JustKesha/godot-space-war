@@ -1,3 +1,10 @@
+# Custom
+assets/
+build/
+test/
+*.tmp
+*.rar
+
 # Godot 4+ specific ignores
 .godot/
 .nomedia
