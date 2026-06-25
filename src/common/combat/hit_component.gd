@@ -28,6 +28,18 @@ func _ready():
 func _on_area_entered(area: Area3D):
 	var hurt_component := area as HurtComponent3D
 	
+	if can_damage(hurt_component):
+		apply_hit(hurt_component)
+
+
+func can_damage(hurt_component: HurtComponent3D) -> bool:
+	if not hurt_component or hurt_component.team == team:
+		return false
+	
+	return true
+
+
+func apply_hit(hurt_component: HurtComponent3D):
 	if not hurt_component:
 		return
 	
