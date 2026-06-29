@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://eaw41w2nn25a" path="res://prefabs/combat/projectiles/projectile.gd" id="1_4w82e"]
 [ext_resource type="Script" uid="uid://buyt2v1pa3nad" path="res://common/combat/hit_component.gd" id="1_fxh21"]
 [ext_resource type="Script" uid="uid://d2essqlwx0sdn" path="res://common/movement/movement_component.gd" id="2_sodes"]
+[ext_resource type="Script" uid="uid://cj88k7meb4boa" path="res://common/combat/hurt_component.gd" id="4_utl5g"]
 
 [node name="Projectile" type="Node3D" unique_id=1209284589 groups=["projectiles"]]
 script = ExtResource("1_4w82e")
@@ -21,6 +22,13 @@ script = ExtResource("1_fxh21")
 metadata/_custom_type_script = "uid://buyt2v1pa3nad"
 
 [node name="Collider" type="CollisionShape3D" parent="Hitbox" unique_id=674927890]
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=459486526]
 unique_name_in_owner = true
+script = ExtResource("4_utl5g")
+metadata/_custom_type_script = "uid://cj88k7meb4boa"
+
+[node name="Collider" type="CollisionShape3D" parent="Hurtbox" unique_id=821627413]
 
 [connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
+[connection signal="damage_taken" from="Hurtbox" to="." method="_on_hurtbox_damage_taken"]
