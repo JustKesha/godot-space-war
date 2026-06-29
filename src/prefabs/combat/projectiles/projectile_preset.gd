@@ -14,6 +14,6 @@ func apply(projectile: Projectile3D) -> bool:
 	
 	projectile.mesh.mesh = mesh
 	projectile.hitbox.damage = damage
-	projectile.speed = speed
+	projectile.movement.speed = speed
 	
 	return true
