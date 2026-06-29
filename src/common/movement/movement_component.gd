@@ -1,22 +1,35 @@
 @icon("uid://boghheyoneo3j")
 class_name MovementComponent3D
 extends Node
+## Simple kinematic movement component for [Node3D].
+##
+## Attach to a [Node3D] to control it's position.
 
 
+## The target node to move. Defaults to the parent node.
 @export var actor: Node3D
+## [member actor]'s speed in units per second.
 @export var speed: float
+## Movement direction (in local space). [br][br][b]Note:[/b] The end movement
+## direction is calculated using [method get_world_direction].
 @export var direction: Vector3 = Vector3.FORWARD
+## If [code]true[/code], direction rotates with the [member actor]'s basis.
 @export var account_for_rotation: bool = true
-@export var use_global_position: bool = true
+## If [code]true[/code], uses [member actor]'s [member Node3D.global_transform],
+## otherwise [member Node3D.transform] (relative to parent).
+@export var use_global_transform: bool = true
+## Stops processing when [code]true[/code].
 @export var disabled: bool
 
+## Proxy interface for accessing and modifying the [member actor]'s position
+## based on the active coordinate space (see [member use_global_transform]).
 var position: Vector3:
 	set(value):
 		if not actor:
 			push_warning("Trying to access position on a null actor.")
 			return
 		
-		if use_global_position:
+		if use_global_transform:
 			actor.global_position = value
 		else:
 			actor.position = value
@@ -25,13 +38,15 @@ var position: Vector3:
 			push_warning("Trying to access position on a null actor.")
 			return Vector3.ZERO
 		
-		return actor.global_position if use_global_position else actor.position
+		return actor.global_position if use_global_transform else actor.position
+## Proxy interface for accessing and modifying the [member actor]'s basis
+## based on the active coordinate space (see [member use_global_transform]).
 var basis: Basis:
 	set(value):
 		if not actor:
 			push_warning("Trying to access basis on a null actor.")
 			return
-		if use_global_position:
+		if use_global_transform:
 			actor.global_transform.basis = value
 		else:
 			actor.transform.basis = value
@@ -39,7 +54,7 @@ var basis: Basis:
 		if not actor:
 			push_warning("Trying to access basis on a null actor.")
 			return Basis.IDENTITY
-		if use_global_position:
+		if use_global_transform:
 			return actor.global_transform.basis
 		return actor.transform.basis
 
@@ -65,6 +80,7 @@ func _move(delta: float):
 	position = _get_next_position(delta)
 
 
+## Returns normalized movement direction in world space.
 func get_world_direction() -> Vector3:
 	if not actor or not account_for_rotation:
 		return direction.normalized()
