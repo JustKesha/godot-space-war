@@ -6,6 +6,7 @@ extends Node3D
 @onready var movement: MovementComponent3D = %Movement
 @onready var mesh: MeshInstance3D = %Mesh
 @onready var hitbox: HitComponent3D = %Hitbox
+@onready var collider: CollisionShape3D = %Collider
 
 
 func _on_hitbox_hit(_hurt_component: HurtComponent3D):

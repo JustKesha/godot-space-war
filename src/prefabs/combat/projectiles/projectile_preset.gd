@@ -4,6 +4,7 @@ extends Resource
 
 
 @export var mesh: Mesh
+@export var hitbox_collider_shape: Shape3D
 @export var damage: float
 @export var speed: float
 
@@ -15,5 +16,6 @@ func apply(projectile: Projectile3D) -> bool:
 	projectile.mesh.mesh = mesh
 	projectile.hitbox.damage = damage
 	projectile.movement.speed = speed
+	projectile.collider.shape = hitbox_collider_shape
 	
 	return true

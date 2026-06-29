@@ -4,25 +4,16 @@
 [ext_resource type="Script" uid="uid://buyt2v1pa3nad" path="res://common/combat/hit_component.gd" id="1_fxh21"]
 [ext_resource type="Script" uid="uid://d2essqlwx0sdn" path="res://common/movement/movement_component.gd" id="2_sodes"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_4w82e"]
-radius = 0.167
-height = 0.333
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_4w82e"]
-
 [node name="Projectile" type="Node3D" unique_id=1209284589 groups=["projectiles"]]
 script = ExtResource("1_4w82e")
 
-[node name="Movement" type="Node" parent="." unique_id=1309694268 node_paths=PackedStringArray("actor")]
+[node name="Movement" type="Node" parent="." unique_id=1309694268]
 unique_name_in_owner = true
 script = ExtResource("2_sodes")
-actor = NodePath("..")
-direction = Vector3(-1, 0, 0)
 metadata/_custom_type_script = "uid://d2essqlwx0sdn"
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=916944333]
 unique_name_in_owner = true
-mesh = SubResource("SphereMesh_4w82e")
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=1446908160]
 unique_name_in_owner = true
@@ -30,6 +21,6 @@ script = ExtResource("1_fxh21")
 metadata/_custom_type_script = "uid://buyt2v1pa3nad"
 
 [node name="Collider" type="CollisionShape3D" parent="Hitbox" unique_id=674927890]
-shape = SubResource("SphereShape3D_4w82e")
+unique_name_in_owner = true
 
 [connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
