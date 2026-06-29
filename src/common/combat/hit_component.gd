@@ -4,7 +4,8 @@ extends CombatArea3D
 ## Component that deals damage to [HurtComponent3D] nodes when they enter the area.
 
 
-## Emitted when this [HitComponent3D] hits a [HurtComponent3D],
+## Emitted when this [HitComponent3D] hits a [HurtComponent3D] successfully
+## (meaning [method can_damage] returns [code]true[/code]),
 ## or when the [method apply_hit] is called manually.
 signal hit(hurt_component: HurtComponent3D)
 ## Emitted when the [member damage] is changed.

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://d0qrugthumeui"]
+
+[ext_resource type="Script" uid="uid://eaw41w2nn25a" path="res://prefabs/combat/projectiles/projectile.gd" id="1_4w82e"]
+[ext_resource type="Script" uid="uid://buyt2v1pa3nad" path="res://common/combat/hit_component.gd" id="1_fxh21"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_4w82e"]
+radius = 0.167
+height = 0.333
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4w82e"]
+
+[node name="Projectile" type="Node3D" unique_id=1209284589 groups=["projectiles"]]
+script = ExtResource("1_4w82e")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=916944333]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_4w82e")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=1446908160]
+unique_name_in_owner = true
+script = ExtResource("1_fxh21")
+metadata/_custom_type_script = "uid://buyt2v1pa3nad"
+
+[node name="Collider" type="CollisionShape3D" parent="Hitbox" unique_id=674927890]
+shape = SubResource("SphereShape3D_4w82e")
+
+[connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
