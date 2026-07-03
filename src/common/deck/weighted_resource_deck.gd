@@ -1,34 +1,55 @@
 @icon("uid://b808fds8dfmmq")
 class_name WeightedResourceDeck
 extends Resource
-## High-performance, infinite data queue that manages a pre-populated sequence of [WeightedResource] objects.
+## High-performance, infinite data queue that manages a pre-populated sequence
+## of [WeightedResource] objects.
 ##
 ## Uses a circular buffer to provide instant look-ahead and mid-queue modification 
 ## without memory shifting or performance lag. Supports both randomized batch 
 ## shuffling and strict sequential iteration based on generation weights.
 
 
-## The number of elements pre-loaded into the buffer queue at all times;
+## The number of elements pre-loaded into the queue at all times;
 ## See [method preview].
-@export var buffer_length: int = 50
-## If [code]true[/code], elements for the buffer queue are randomized in batches.
+@export var queue_size: int = 50:
+	set(value):
+		queue_size = value
+		_on_changed()
+## If [code]true[/code], elements for the queue are randomized in batches.
 ## [br][br][param deck]:    [code]A (weight: 2), B (weight: 1)[/code]
 ## [br]queue:    [code]A,B,A[/code]    [code]B,A,A[/code]    . . .
-## [br][br][code]false[/code], they follow an ascending sequence of the [member deck].
+## [br][br]If [code]false[/code], they follow an ascending sequence of the [member deck].
 ## [br][br][param deck]:    [code]A (weight: 2), B (weight: 1)[/code]
 ## [br]queue:    [code]A,A,B[/code]    [code]A,A,B[/code]    . . .
-@export var shuffle: bool
+@export var shuffle: bool = true:
+	set(value):
+		shuffle = value
+		_on_changed()
 ## The source array of resources and their respective weights for the queue.
 @export var deck: Array[WeightedResource]:
 	set(value):
 		deck = value
-		rebuild()
+		_on_changed()
+## If [code]true[/code], automatically calls [method rebuild] whenever this
+## resource emits [signal changed]. If [code]false[/code], the active queue will
+## not recieve any changed up until the new elements arrive.
+## [br][br][b]Note:[/b] This does not apply for the [member deck]'s array
+## modifications, only property set calls ([code]property = value[/code]).
+@export var auto_rebuild: bool = true:
+	set(value):
+		auto_rebuild = value
+		_on_changed()
 
 var _runtime_buffer: Array[Resource] = []
 var _donor_deck: Array[Resource] = []
 var _head_index: int = 0
 var _sequence_index: int = 0
 var _total_deck_weight: int = 0
+
+
+func _on_changed():
+	changed.emit()
+	if auto_rebuild: rebuild()
 
 
 func _pull_next_resource() -> Resource:
@@ -70,7 +91,7 @@ func _get_ordered_resource_at_sequence() -> Resource:
 	return null
 
 
-## Completely clears and rebuilds the buffer queue from scratch.
+## Completely clears and rebuilds the resource queue from scratch.
 func rebuild():
 	_runtime_buffer.clear()
 	_donor_deck.clear()
@@ -78,15 +99,15 @@ func rebuild():
 	_sequence_index = 0
 	_total_deck_weight = 0
 	
-	if deck.is_empty() or buffer_length <= 0:
+	if deck.is_empty() or queue_size <= 0:
 		return
 	
 	for item in deck:
 		if item: 
 			_total_deck_weight += max(0, item.weight)
 	
-	_runtime_buffer.resize(buffer_length)
-	for i in range(buffer_length):
+	_runtime_buffer.resize(queue_size)
+	for i in range(queue_size):
 		var next_res = _pull_next_resource()
 		if not next_res:
 			_runtime_buffer.resize(i)
@@ -95,14 +116,14 @@ func rebuild():
 
 
 ## Returns an array containing the specified number of upcoming resources from
-## the buffer queue. The returned array length cannot be greater than
-## [member buffer_length]. Any [param count] value below [code]0[/code] will
-## default it to [member buffer_length].
+## the queue. The returned array length cannot be greater than
+## [member queue_size]. Any [param count] value below [code]0[/code] will
+## default it to [member queue_size].
 func preview(count: int = -1) -> Array[Resource]:
 	var preview_list: Array[Resource] = []
 	var buffer_size = _runtime_buffer.size()
 	
-	if buffer_size == 0 and not deck.is_empty() and buffer_length > 0:
+	if buffer_size == 0 and not deck.is_empty() and queue_size > 0:
 		rebuild()
 		buffer_size = _runtime_buffer.size()
 	
@@ -110,7 +131,7 @@ func preview(count: int = -1) -> Array[Resource]:
 		return preview_list
 	
 	if count < 0:
-		count = buffer_length
+		count = queue_size
 	
 	var limit = min(count, buffer_size)
 	for i in range(limit):
@@ -138,7 +159,7 @@ func draw(count: int = 1) -> Array[Resource]:
 	var drawn_items: Array[Resource] = []
 	var buffer_size = _runtime_buffer.size()
 	
-	if buffer_size == 0 and not deck.is_empty() and buffer_length > 0:
+	if buffer_size == 0 and not deck.is_empty() and queue_size > 0:
 		rebuild()
 		buffer_size = _runtime_buffer.size()
 	

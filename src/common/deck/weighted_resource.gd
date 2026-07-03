@@ -7,6 +7,22 @@ extends Resource
 
 
 ## The relative frequency multiplier of this element within a generation pool.
-@export var weight: int
+@export var weight: int = 1:
+	set(value):
+		if weight == value:
+			return
+		weight = value
+		_on_changed()
 ## The underlying resource data being wrapped.
-@export var value: Resource
+@export var value: Resource:
+	set(v):
+		if value and value.changed.is_connected(_on_changed):
+			value.changed.disconnect(_on_changed)
+		value = v
+		if value and not value.changed.is_connected(_on_changed):
+			value.changed.connect(_on_changed)
+		_on_changed()
+
+
+func _on_changed():
+	changed.emit()
