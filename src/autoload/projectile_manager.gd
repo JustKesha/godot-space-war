@@ -5,6 +5,26 @@ extends Node3D
 
 
 const PROJECTILE: PackedScene = preload("uid://d0qrugthumeui")
+const PROJECTILE_GROUP: String = "projectiles"
+
+
+## Resets the manager's transform and visibility.
+func reset():
+	global_transform = Transform3D.IDENTITY
+	transform = Transform3D.IDENTITY
+	visible = true
+
+
+## Frees all projectiles currently loaded into the scene tree.
+func clear():
+	for projectile in all():
+		projectile.queue_free()
+
+
+## Syntax sugar, calls [method clear] and then [method reset].
+func clear_and_reset():
+	clear()
+	reset()
 
 
 ## Instantiates and returns a default [Projectile3D].
@@ -12,6 +32,7 @@ func create_projectile() -> Projectile3D:
 	var projectile := PROJECTILE.instantiate() as Projectile3D
 	
 	assert(projectile, "Could not instantiate PROJECTILE as a Projectile3D.")
+	projectile.add_to_group(PROJECTILE_GROUP)
 	
 	return projectile
 
@@ -34,3 +55,10 @@ func spawn(preset: ProjectilePreset3D = null, pos := Vector3.ZERO,
 	projectile.movement.direction = dir
 	
 	return projectile
+
+
+## Finds and returns all projectiles currently loaded into the scene tree.
+func all() -> Array[Projectile3D]:
+	var projectiles: Array[Projectile3D] = []
+	projectiles.assign(get_tree().get_nodes_in_group(PROJECTILE_GROUP))
+	return projectiles

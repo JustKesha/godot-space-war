@@ -11,6 +11,7 @@ script = ExtResource("1_4w82e")
 [node name="Movement" type="Node" parent="." unique_id=1309694268]
 unique_name_in_owner = true
 script = ExtResource("2_sodes")
+use_global_transform = false
 metadata/_custom_type_script = "uid://d2essqlwx0sdn"
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=916944333]
