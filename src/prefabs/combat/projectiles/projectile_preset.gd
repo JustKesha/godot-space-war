@@ -7,7 +7,6 @@ extends Resource
 @export_group("Movement")
 @export var speed: float
 @export_group("Damage")
-@export var team: CombatArea3D.Team
 @export var destroy_on_hit: bool = true
 @export_subgroup("Hitbox", "hitbox")
 @export var hitbox_collider_shape: Shape3D
@@ -25,7 +24,6 @@ func apply(projectile: Projectile3D) -> bool:
 	
 	projectile.movement.speed = speed
 	
-	projectile.team = team
 	projectile.destroy_on_hit = destroy_on_hit
 	projectile.hitbox_collider.shape = hitbox_collider_shape
 	projectile.hitbox.damage = hitbox_damage

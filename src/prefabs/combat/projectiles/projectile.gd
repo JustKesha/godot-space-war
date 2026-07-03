@@ -33,5 +33,10 @@ func _update_team():
 	if hurtbox: hurtbox.team = team
 
 
+func apply_preset(preset: ProjectilePreset3D):
+	if preset:
+		preset.apply(self)
+
+
 func destroy():
 	queue_free()
