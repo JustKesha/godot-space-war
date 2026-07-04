@@ -105,3 +105,10 @@ func set_on_cooldown(cooldown_duration: float = -1):
 	
 	_cooldown_timer.start(cooldown_duration)
 	cooldown_started.emit(cooldown_duration)
+
+
+func reset_cooldown():
+	if not on_cooldown:
+		return
+	_cooldown_timer.stop()
+	_on_cooldown_end()
