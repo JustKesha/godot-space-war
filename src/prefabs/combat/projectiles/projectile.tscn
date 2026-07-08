@@ -1,35 +1,10 @@
-[gd_scene format=3 uid="uid://d0qrugthumeui"]
+[gd_scene format=3 uid="uid://co18sy5pxk2ya"]
 
 [ext_resource type="Script" uid="uid://eaw41w2nn25a" path="res://prefabs/combat/projectiles/projectile.gd" id="1_4w82e"]
-[ext_resource type="Script" uid="uid://buyt2v1pa3nad" path="res://common/combat/hit_component.gd" id="1_fxh21"]
-[ext_resource type="Script" uid="uid://d2essqlwx0sdn" path="res://common/movement/movement_component.gd" id="2_sodes"]
-[ext_resource type="Script" uid="uid://cj88k7meb4boa" path="res://common/combat/hurt_component.gd" id="4_utl5g"]
+[ext_resource type="PackedScene" uid="uid://c2qlabd4dad27" path="res://prefabs/entity.tscn" id="1_fxh21"]
 
-[node name="Projectile" type="Node3D" unique_id=1209284589 groups=["projectiles"]]
+[node name="Projectile3D" unique_id=23279077 instance=ExtResource("1_fxh21")]
 script = ExtResource("1_4w82e")
 
-[node name="Movement" type="Node" parent="." unique_id=1309694268]
+[node name="Mesh" type="MeshInstance3D" parent="." index="3" unique_id=1649038619]
 unique_name_in_owner = true
-script = ExtResource("2_sodes")
-use_global_transform = false
-metadata/_custom_type_script = "uid://d2essqlwx0sdn"
-
-[node name="Mesh" type="MeshInstance3D" parent="." unique_id=916944333]
-unique_name_in_owner = true
-
-[node name="Hitbox" type="Area3D" parent="." unique_id=1446908160]
-unique_name_in_owner = true
-script = ExtResource("1_fxh21")
-metadata/_custom_type_script = "uid://buyt2v1pa3nad"
-
-[node name="Collider" type="CollisionShape3D" parent="Hitbox" unique_id=674927890]
-
-[node name="Hurtbox" type="Area3D" parent="." unique_id=459486526]
-unique_name_in_owner = true
-script = ExtResource("4_utl5g")
-metadata/_custom_type_script = "uid://cj88k7meb4boa"
-
-[node name="Collider" type="CollisionShape3D" parent="Hurtbox" unique_id=821627413]
-
-[connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
-[connection signal="damage_taken" from="Hurtbox" to="." method="_on_hurtbox_damage_taken"]

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c2qlabd4dad27"]
+
+[ext_resource type="Script" uid="uid://bmpg833eiy06u" path="res://prefabs/entity.gd" id="1_bttcl"]
+[ext_resource type="Script" uid="uid://d2essqlwx0sdn" path="res://common/movement/movement_component.gd" id="2_k5136"]
+[ext_resource type="Script" uid="uid://cj88k7meb4boa" path="res://common/combat/hurt_component.gd" id="3_bcmc8"]
+[ext_resource type="Script" uid="uid://buyt2v1pa3nad" path="res://common/combat/hit_component.gd" id="4_hdbtn"]
+
+[node name="Entity3D" type="Node3D" unique_id=23279077]
+script = ExtResource("1_bttcl")
+
+[node name="Movement" type="Node" parent="." unique_id=1014244042]
+unique_name_in_owner = true
+script = ExtResource("2_k5136")
+metadata/_custom_type_script = "uid://d2essqlwx0sdn"
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=103141065]
+unique_name_in_owner = true
+script = ExtResource("3_bcmc8")
+metadata/_custom_type_script = "uid://cj88k7meb4boa"
+
+[node name="Collider" type="CollisionShape3D" parent="Hurtbox" unique_id=959524656]
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=416937066]
+unique_name_in_owner = true
+script = ExtResource("4_hdbtn")
+metadata/_custom_type_script = "uid://buyt2v1pa3nad"
+
+[node name="Collider" type="CollisionShape3D" parent="Hitbox" unique_id=12845228]
+
+[connection signal="damage_taken" from="Hurtbox" to="." method="_on_hurtbox_damage_taken"]
+[connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
