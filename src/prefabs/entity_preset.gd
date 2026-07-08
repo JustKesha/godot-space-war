@@ -65,11 +65,11 @@ func _on_applied(_entity: Entity3D) -> bool:
 
 
 func apply(entity: Entity3D) -> bool:
-	if not entity.is_node_ready():
-		push_warning("Could not apply preset. Recieved entity node is not ready.")
-		return false
 	if not entity:
 		push_warning("Could not apply preset. Recieved an invalid entity.")
+		return false
+	if not entity.is_node_ready():
+		push_warning("Could not apply preset. Recieved entity node is not ready.")
 		return false
 	
 	entity.destroy_on_damage_taken = destroy_on_damage_taken

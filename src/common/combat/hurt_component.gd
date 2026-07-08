@@ -13,7 +13,7 @@ signal damage_taken(amount: float, source: HitComponent3D)
 
 ## Emits [signal damage_taken] if the given damage is accepted.
 func take_damage(amount: float, source: HitComponent3D):
-	if amount < damage_detection_threshold:
+	if amount <= damage_detection_threshold:
 		return
 	
 	damage_taken.emit(amount, source)
