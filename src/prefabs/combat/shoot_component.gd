@@ -54,6 +54,11 @@ var on_cooldown: bool:
 		if not _cooldown_timer:
 			return false
 		return _cooldown_timer.time_left > 0
+var fire_rate: float:
+	get():
+		return 1.0 / cooldown if cooldown > 0 else INF
+	set(value):
+		cooldown = 1.0 / value if value > 0 else INF
 
 
 func _ready():
