@@ -4,7 +4,7 @@ extends Node3D
 ## Manager responsible for instantiating, configuring and managing [Projectile3D]s.
 
 
-const PROJECTILE: PackedScene = preload("uid://d0qrugthumeui")
+const PROJECTILE: PackedScene = preload("uid://co18sy5pxk2ya")
 const PROJECTILE_GROUP: String = "projectiles"
 
 

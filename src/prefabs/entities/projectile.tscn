@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://co18sy5pxk2ya"]
 
-[ext_resource type="Script" uid="uid://eaw41w2nn25a" path="res://prefabs/combat/projectiles/projectile.gd" id="1_4w82e"]
+[ext_resource type="Script" uid="uid://eaw41w2nn25a" path="res://prefabs/entities/projectile.gd" id="1_4w82e"]
 [ext_resource type="PackedScene" uid="uid://c2qlabd4dad27" path="res://prefabs/entity.tscn" id="1_fxh21"]
 
 [node name="Projectile3D" unique_id=23279077 instance=ExtResource("1_fxh21")]
