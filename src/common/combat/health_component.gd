@@ -3,19 +3,23 @@ class_name HealthComponent
 extends Node
 
 
-signal health_changed(new_value: float)
-signal health_increased(by_amount: float)
-signal health_decreased(by_amount: float)
+signal value_changed(new_value: float)
+signal value_increased(by_amount: float)
+signal value_decreased(by_amount: float)
+signal maximum_value_reached()
+signal minimum_value_reached()
 
 enum ModifyOperation {
 	INCREASE = 1,
 	DECREASE = -1,
 	}
 
-@export var start_ratio: float = 1.0
-@export_group("Limits", "points")
-@export var points_min: float = 0
-@export var points_max: float = INF
+@export_group("Start", "start")
+@export var start_ratio: float = 0.0
+@export var start_bonus: float = 1.0
+@export_group("Limits", "value")
+@export var value_min: float = 0
+@export var value_max: float = INF
 @export_group("Increase", "increase")
 @export var increase_ratio: float = 1.0
 @export var increase_threshold: float = 0.0
@@ -23,32 +27,49 @@ enum ModifyOperation {
 @export var decrease_ratio: float = 1.0
 @export var decrease_threshold: float = 0.0
 
-var _start_ratio_applied: bool
-var points: float = 1.0:
-	set(value):
-		value = clampf(value, points_min, points_max)
-		if points == value:
-			return
-		
-		var points_old := points
-		points = value
-		
-		if not _start_ratio_applied:
-			return
-		
-		health_changed.emit(points)
-		if points > points_old:
-			health_increased.emit(points - points_old)
-		else:
-			health_decreased.emit(points_old - points)
+var _value: float = 0.0
+var value: float:
+	set(value): _set_value(value)
+	get(): return _value
 
 
 func _ready():
-	if is_finite(points_max):
-		points = points_max * start_ratio
+	reset()
+
+
+func _set_value(new_value: float, emit_signals: bool = true):
+	if is_nan(new_value):
+		return
+	
+	new_value = clampf(new_value, value_min, value_max)
+	
+	if value == new_value:
+		return
+	
+	var value_old := value
+	_value = new_value
+	
+	if not emit_signals:
+		return
+	
+	value_changed.emit(value)
+	if value > value_old:
+		value_increased.emit(value - value_old)
+		if value == value_max:
+			maximum_value_reached.emit()
 	else:
-		points = start_ratio
-	_start_ratio_applied = true
+		value_decreased.emit(value_old - value)
+		if value == value_min:
+			minimum_value_reached.emit()
+
+
+func reset():
+	var start_base := value_max * start_ratio
+	
+	if is_nan(start_base):
+		start_base = 0.0
+	
+	_set_value(start_base + start_bonus, false)
 
 
 func modify(operation: ModifyOperation, amount: float, threshold: float = 0.0,
@@ -59,8 +80,8 @@ func modify(operation: ModifyOperation, amount: float, threshold: float = 0.0,
 	amount = clampf(amount * ratio, 0, INF)
 	
 	match operation:
-		ModifyOperation.INCREASE: points += amount
-		ModifyOperation.DECREASE: points -= amount
+		ModifyOperation.INCREASE: value += amount
+		ModifyOperation.DECREASE: value -= amount
 	
 	return amount
 
