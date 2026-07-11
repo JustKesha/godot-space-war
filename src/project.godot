@@ -33,6 +33,8 @@ folder_colors={
 [global_group]
 
 projectiles=""
+entities=""
+durable_entities=""
 
 [physics]
 
