@@ -60,10 +60,6 @@ func _on_changed():
 	changed.emit()
 
 
-func _on_applied(_entity: Entity3D) -> bool:
-	return true
-
-
 func apply(entity: Entity3D) -> bool:
 	if not entity:
 		push_warning("Could not apply preset. Recieved an invalid entity.")
@@ -82,9 +78,6 @@ func apply(entity: Entity3D) -> bool:
 	
 	entity.hurtbox_collider.shape = hurtbox_collider_shape
 	entity.hurtbox.damage_detection_threshold = hurtbox_damage_detection_threshold
-	
-	if not _on_applied(entity):
-		return false
 	
 	applied.emit()
 	

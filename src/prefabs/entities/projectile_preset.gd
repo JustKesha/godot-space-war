@@ -13,12 +13,13 @@ extends EntityPreset3D
 			mesh.changed.connect(_on_changed)
 
 
-func _on_applied(entity: Entity3D) -> bool:
+func apply(entity: Entity3D) -> bool:
 	var projectile := entity as Projectile3D
 	
 	if not projectile:
 		push_warning("Could not apply preset. Recieved entity is not a projectile.")
+		return false
 	
 	projectile.mesh.mesh = mesh
 	
-	return true
+	return super(entity)
