@@ -65,6 +65,7 @@ enum FireMode {
 @export_group("Cooldown")
 ## The (default) minimum rest time-frame (in seconds) required between two successful
 ## [method shoot] calls. [br][br][b]Note:[/b] This can be by-passed, see [method shoot].
+## Setting this anywhere below [code]0.05[/code] is not recommended, see [member Timer.wait_time].
 @export var cooldown: float = 1.0:
 	set(value):
 		if cooldown == value:
@@ -93,8 +94,9 @@ var on_cooldown: bool:
 ## Determines the maximum number of successful [method shoot] calls possible per
 ## second. This is a computed property - modifying it automatically updates the
 ## [member cooldown]. If the [member cooldown] is [code]0[/code] will return
-## [code]INF[/code]. [br][br][b]Note:[/b] This restriction can be by-passed,
-## see [method shoot].
+## [code]INF[/code]. [br][br][b]Note:[/b] The [member fire_rate]/[member cooldown]
+## restriction can be by-passed, see [method shoot]. Setting this anywhere above
+## [code]20[/code] is not recommended, see [member Timer.wait_time].
 var fire_rate: float:
 	get():
 		return 1.0 / cooldown if cooldown > 0 else INF
@@ -103,7 +105,7 @@ var fire_rate: float:
 
 
 func _ready():
-	if auto_shoot: shoot()
+	if auto_shoot: shoot.call_deferred()
 
 
 func _init_cooldown_timer():
@@ -111,6 +113,7 @@ func _init_cooldown_timer():
 		return
 	_cooldown_timer = Timer.new()
 	_cooldown_timer.one_shot = true
+	_cooldown_timer.name = 'Cooldown'
 	add_child(_cooldown_timer)
 
 
@@ -134,9 +137,10 @@ func _get_next_projectile_preset() -> ProjectilePreset3D:
 
 
 func _to_world_direction(local_dir: Vector3) -> Vector3:
-	var normalized_local = local_dir.normalized()
+	var normalized_local := local_dir.normalized()
+	
 	if directions_relative:
-		return global_transform.basis * normalized_local
+		return normalized_local * global_transform.basis.get_rotation_quaternion()
 	else:
 		return normalized_local
 
@@ -171,6 +175,25 @@ func _get_shoot_position() -> Vector3:
 	return origin + offset
 
 
+func _fire_projectile(preset: ProjectilePreset3D,
+	pos: Vector3, dir: Vector3) -> Projectile3D:
+	var spawn_transform := Transform3D(Basis.looking_at(dir), pos)
+	var projectile := Game.current_level.projectiles.new(spawn_transform) as Projectile3D
+	
+	if not projectile:
+		push_warning("Failed to create a new projectile instance.
+			Make sure the current_level is assigned.")
+		return null
+	
+	projectile.team = team
+	projectile.movement.position = pos
+	projectile.apply_preset(preset)
+	
+	shot_fired.emit(projectile)
+	
+	return projectile
+
+
 ## Returns [code]true[/code] if the component is capable of successfully
 ## processing to a [method shoot] call.
 func can_shoot(ignore_cooldown: bool = false) -> bool:
@@ -188,7 +211,7 @@ func can_shoot(ignore_cooldown: bool = false) -> bool:
 ## [br][br][b]Note:[/b] Will fail if [method can_shoot] returns [code]false[/code].
 func shoot(preset: ProjectilePreset3D = null, cooldown_time: float = -1,
 	ignore_cooldown: bool = false) -> Array[Projectile3D]:
-	if not can_shoot(ignore_cooldown): 
+	if not can_shoot(ignore_cooldown):
 		return []
 	if not preset: 
 		preset = _get_next_projectile_preset()
@@ -201,10 +224,9 @@ func shoot(preset: ProjectilePreset3D = null, cooldown_time: float = -1,
 	var pos := _get_shoot_position()
 	
 	for dir in dirs:
-		var projectile := ProjectileManager.spawn(preset, pos, dir, team)
+		var projectile := _fire_projectile(preset, pos, dir)
 		if projectile:
 			output.append(projectile)
-			shot_fired.emit(projectile)
 	
 	if cooldown_time != 0:
 		set_on_cooldown(cooldown_time)
