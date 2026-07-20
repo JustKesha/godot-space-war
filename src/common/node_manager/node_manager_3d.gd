@@ -9,6 +9,9 @@ extends Node3D
 ## require or use any dimension-specific logic.
 
 
+signal node_spawned(node: Node3D)
+signal node_killed(node: Node3D)
+
 @export var packed_scene: PackedScene
 @export var host: Node3D
 
@@ -36,8 +39,11 @@ func _get_new_instance(parent: Node3D) -> Node3D:
 
 
 func _dispose(node: Node3D):
-	if is_instance_valid(node):
-		node.queue_free()
+	if not is_instance_valid(node):
+		return
+	
+	node.queue_free()
+	node_killed.emit(node)
 
 
 func new(spawn_transform: Transform3D, parent: Node3D = null) -> Node3D:
@@ -52,6 +58,7 @@ func new(spawn_transform: Transform3D, parent: Node3D = null) -> Node3D:
 	new_node.global_transform = spawn_transform
 	
 	active_nodes.append(new_node)
+	node_spawned.emit(new_node)
 	
 	return new_node
 
