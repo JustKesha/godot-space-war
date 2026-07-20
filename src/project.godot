@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="Space War"
-run/main_scene="uid://67e44ekprc0b"
+run/main_scene="uid://du25k4v10oktw"
 config/features=PackedStringArray("4.6", "Forward Plus")
+run/max_fps=120
 config/icon="uid://cii8vt46tpsta"
 
 [autoload]
 
-ProjectileManager="*uid://bqp2ilok6lq1m"
+Game="*uid://c71hbqe6y5hh1"
+
+[display]
+
+window/vsync/vsync_mode=0
 
 [file_customization]
 

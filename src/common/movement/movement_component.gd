@@ -13,12 +13,13 @@ extends Node
 ## Movement direction (in local space). [br][br][b]Note:[/b] The end movement
 ## direction is calculated using [method get_world_direction].
 @export var direction: Vector3 = Vector3.FORWARD
-## If [code]true[/code], direction rotates with the [member actor]'s basis.
-@export var account_for_rotation: bool = true
+## If [code]true[/code], [member direction] is relative to the [member actor]'s
+## orientation, otherwise it is treated as a static vector in world space.
+@export var direction_relative: bool = true
 ## If [code]true[/code], uses [member actor]'s [member Node3D.global_transform],
 ## otherwise [member Node3D.transform] (relative to parent).
-@export var use_global_transform: bool = true
-## Stops processing when [code]true[/code].
+@export var use_global_transform: bool
+## Stops processing movement when [code]true[/code].
 @export var disabled: bool
 
 ## Proxy interface for accessing and modifying the [member actor]'s position
@@ -82,7 +83,7 @@ func _move(delta: float):
 
 ## Returns normalized movement direction in world space.
 func get_world_direction() -> Vector3:
-	if not actor or not account_for_rotation:
+	if not actor or not direction_relative:
 		return direction.normalized()
 	
 	return (basis * direction).normalized()

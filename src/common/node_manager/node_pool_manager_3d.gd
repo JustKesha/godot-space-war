@@ -27,6 +27,7 @@ func _ready():
 
 func _init_trim_timer():
 	_trim_timer = Timer.new()
+	_trim_timer.name = "TrimTimer"
 	_trim_timer.timeout.connect(trim)
 	add_child(_trim_timer)
 
