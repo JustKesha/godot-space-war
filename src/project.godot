@@ -28,8 +28,9 @@ window/vsync/vsync_mode=0
 
 folder_colors={
 "res://assets/": "orange",
-"res://autoload/": "teal",
+"res://autoload/": "red",
 "res://common/": "blue",
+"res://data/": "teal",
 "res://prefabs/": "purple",
 "res://scenes/": "pink",
 "res://test/": "yellow"

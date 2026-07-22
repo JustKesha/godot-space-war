@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://c2qlabd4dad27"]
 
-[ext_resource type="Script" uid="uid://bmpg833eiy06u" path="res://prefabs/entity.gd" id="1_bttcl"]
+[ext_resource type="Script" uid="uid://bmpg833eiy06u" path="res://prefabs/entity/entity.gd" id="1_bttcl"]
 [ext_resource type="Script" uid="uid://d2essqlwx0sdn" path="res://common/movement/movement_component.gd" id="2_k5136"]
 [ext_resource type="Script" uid="uid://cj88k7meb4boa" path="res://common/combat/hurt_component.gd" id="3_bcmc8"]
 [ext_resource type="Script" uid="uid://buyt2v1pa3nad" path="res://common/combat/hit_component.gd" id="4_hdbtn"]
+
 
 [node name="Entity3D" type="Node3D" unique_id=23279077 groups=["entities"]]
 script = ExtResource("1_bttcl")
