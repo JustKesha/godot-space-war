@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://btegtrerbj3a1"]
 
 [ext_resource type="Script" uid="uid://djqg6l45igd6u" path="res://scenes/level.gd" id="1_2q6dc"]
-[ext_resource type="Script" uid="uid://cp0y83q487vi8" path="res://common/node_manager/node_pool_manager_3d.gd" id="2_w8frs"]
+[ext_resource type="Script" uid="uid://cp0y83q487vi8" path="res://common/node_manager/node_pool_manager.gd" id="2_w8frs"]
 [ext_resource type="PackedScene" uid="uid://co18sy5pxk2ya" path="res://prefabs/entity/projectile/projectile.tscn" id="3_mx8sn"]
 
 [node name="Level" type="Node3D" unique_id=436446468]
