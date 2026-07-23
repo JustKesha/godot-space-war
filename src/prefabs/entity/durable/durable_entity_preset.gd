@@ -102,5 +102,6 @@ func apply(entity: Entity3D) -> bool:
 	durable_entity.health.increase_threshold = health_increase_threshold
 	durable_entity.health.decrease_ratio = health_decrease_ratio
 	durable_entity.health.decrease_threshold = health_decrease_threshold
+	durable_entity.health.reset()
 	
 	return super(entity)

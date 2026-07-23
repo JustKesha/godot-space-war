@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dk5fm0j1prad5" path="res://prefabs/entity/durable/durable_entity.gd" id="2_53eox"]
 [ext_resource type="Script" uid="uid://fc6gki67k3g1" path="res://common/combat/health_component.gd" id="3_e4xux"]
 
-
 [node name="DurableEntity3D" unique_id=23279077 groups=["durable_entities"] instance=ExtResource("1_8tnv0")]
 script = ExtResource("2_53eox")
 account_for_damage_taken = true
