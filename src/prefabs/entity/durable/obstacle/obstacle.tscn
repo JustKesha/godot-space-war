@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bqpvtssfslooi"]
+
+[ext_resource type="PackedScene" uid="uid://dpsnmtqgtcab3" path="res://prefabs/entity/durable/durable_entity.tscn" id="1_48avm"]
+[ext_resource type="Script" uid="uid://ywv826g2bg8k" path="res://prefabs/entity/durable/obstacle/obstacle.gd" id="2_8tnkb"]
+
+[node name="Obstacle3D" unique_id=23279077 groups=["obstacles"] instance=ExtResource("1_48avm")]
+script = ExtResource("2_8tnkb")
+
+[node name="Sprite" type="AnimatedSprite3D" parent="." index="4" unique_id=1114398105]
+unique_name_in_owner = true
+pixel_size = 0.0625
+billboard = 2
+texture_filter = 0

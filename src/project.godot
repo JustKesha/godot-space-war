@@ -41,6 +41,7 @@ folder_colors={
 projectiles=""
 entities=""
 durable_entities=""
+obstacles=""
 
 [physics]
 
