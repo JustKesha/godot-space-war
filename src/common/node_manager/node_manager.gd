@@ -11,6 +11,7 @@ extends Node3D
 
 signal node_spawned(node: Node3D)
 signal node_killed(node: Node3D)
+signal all_nodes_killed()
 
 @export var packed_scene: PackedScene
 @export var host: Node3D
@@ -67,6 +68,8 @@ func kill(node: Node3D):
 	if node in active_nodes:
 		active_nodes.erase(node)
 	_dispose(node)
+	if active_nodes.is_empty():
+		all_nodes_killed.emit()
 
 
 func clear():

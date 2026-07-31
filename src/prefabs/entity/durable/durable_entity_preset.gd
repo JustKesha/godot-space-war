@@ -29,26 +29,26 @@ extends EntityPreset3D
 		_on_changed()
 @export_group("Health", "health")
 @export_subgroup("Start", "health_start")
-@export var health_start_ratio: float = 0.0:
+@export var health_start_ratio: float = 1.0:
 	set(value):
 		if health_start_ratio == value:
 			return
 		health_start_ratio = value
 		_on_changed()
-@export var health_start_bonus: float = 1.0:
+@export var health_start_bonus: float = 0.0:
 	set(value):
 		if health_start_bonus == value:
 			return
 		health_start_bonus = value
 		_on_changed()
 @export_subgroup("Limits", "health_value")
-@export var health_value_min: float = 0:
+@export var health_value_min: float = 0.0:
 	set(value):
 		if health_value_min == value:
 			return
 		health_value_min = value
 		_on_changed()
-@export var health_value_max: float = INF:
+@export var health_value_max: float = 1.0:
 	set(value):
 		if health_value_max == value:
 			return

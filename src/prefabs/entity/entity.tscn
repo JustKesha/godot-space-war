@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://cj88k7meb4boa" path="res://common/combat/hurt_component.gd" id="3_bcmc8"]
 [ext_resource type="Script" uid="uid://buyt2v1pa3nad" path="res://common/combat/hit_component.gd" id="4_hdbtn"]
 
-
 [node name="Entity3D" type="Node3D" unique_id=23279077 groups=["entities"]]
 script = ExtResource("1_bttcl")
 

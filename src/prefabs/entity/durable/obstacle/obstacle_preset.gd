@@ -3,6 +3,7 @@ class_name ObstaclePreset3D
 extends DurableEntityPreset3D
 
 
+@export var difficulty: float = 1.0
 @export_group("Sprite", "sprite")
 @export var sprite_frames: SpriteFrames:
 	set(value):
