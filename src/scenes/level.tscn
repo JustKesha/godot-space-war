@@ -4,9 +4,48 @@
 [ext_resource type="Script" uid="uid://cp0y83q487vi8" path="res://common/node_manager/node_pool_manager.gd" id="2_w8frs"]
 [ext_resource type="PackedScene" uid="uid://co18sy5pxk2ya" path="res://prefabs/entity/projectile/projectile.tscn" id="3_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://bqpvtssfslooi" path="res://prefabs/entity/durable/obstacle/obstacle.tscn" id="4_mx8sn"]
+[ext_resource type="Script" uid="uid://c4d2n3o7cvyqo" path="res://prefabs/wave/wave_manager.gd" id="5_olg7q"]
+[ext_resource type="Script" uid="uid://3o1vj5a5816" path="res://prefabs/wave/wave.gd" id="6_klq6b"]
+[ext_resource type="Script" uid="uid://gdiarmlph82l" path="res://prefabs/wave/wave_section.gd" id="7_b121j"]
+[ext_resource type="Resource" uid="uid://dkxlx7u7ehsov" path="res://test/resources/obstacle_easy.tres" id="8_8c41q"]
+[ext_resource type="Resource" uid="uid://d1ipbq06sh00s" path="res://test/resources/obstacle_medium.tres" id="9_olg7q"]
+[ext_resource type="Resource" uid="uid://bwyohwnvselme" path="res://test/resources/obstacle_hard.tres" id="10_t1rx8"]
+
+[sub_resource type="Resource" id="Resource_olg7q"]
+script = ExtResource("7_b121j")
+obstacle = ExtResource("8_8c41q")
+metadata/_custom_type_script = "uid://gdiarmlph82l"
+
+[sub_resource type="Resource" id="Resource_8iemx"]
+script = ExtResource("6_klq6b")
+sections = Array[ExtResource("7_b121j")]([SubResource("Resource_olg7q")])
+metadata/_custom_type_script = "uid://3o1vj5a5816"
+
+[sub_resource type="Resource" id="Resource_t1rx8"]
+script = ExtResource("7_b121j")
+obstacle = ExtResource("9_olg7q")
+metadata/_custom_type_script = "uid://gdiarmlph82l"
+
+[sub_resource type="Resource" id="Resource_64w2a"]
+script = ExtResource("6_klq6b")
+sections = Array[ExtResource("7_b121j")]([SubResource("Resource_t1rx8")])
+metadata/_custom_type_script = "uid://3o1vj5a5816"
+
+[sub_resource type="Resource" id="Resource_fpun6"]
+script = ExtResource("7_b121j")
+obstacle = ExtResource("10_t1rx8")
+metadata/_custom_type_script = "uid://gdiarmlph82l"
+
+[sub_resource type="Resource" id="Resource_wc255"]
+script = ExtResource("6_klq6b")
+sections = Array[ExtResource("7_b121j")]([SubResource("Resource_fpun6")])
+metadata/_custom_type_script = "uid://3o1vj5a5816"
 
 [node name="Level" type="Node3D" unique_id=436446468]
 script = ExtResource("1_2q6dc")
+drift_enabled = true
+drift_speed = 4.0
+drift_affect_ratio_projectiles = 0.0
 
 [node name="Projectiles" type="Node3D" parent="." unique_id=619176340]
 unique_name_in_owner = true
@@ -21,3 +60,14 @@ unique_name_in_owner = true
 script = ExtResource("2_w8frs")
 packed_scene = ExtResource("4_mx8sn")
 metadata/_custom_type_script = "uid://cp0y83q487vi8"
+
+[node name="WaveManager" type="Node3D" parent="." unique_id=1269279088]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("5_olg7q")
+waves_available = Array[ExtResource("6_klq6b")]([SubResource("Resource_8iemx"), SubResource("Resource_64w2a"), SubResource("Resource_wc255")])
+bounds = AABB(0, 0, -9, 0, 0, 0)
+step = Vector3(1, 1, 1)
+auto_spawn_delay = 0.25
+auto_spawn_enabled = true
+metadata/_custom_type_script = "uid://c4d2n3o7cvyqo"
