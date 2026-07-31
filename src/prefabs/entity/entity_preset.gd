@@ -5,13 +5,14 @@ extends Resource
 
 signal applied
 
-@export var destroy_on_damage_taken: bool = true:
+@export_group("Self Destruct", "destroy")
+@export var destroy_on_damage_taken: bool:
 	set(value):
 		if destroy_on_damage_taken == value:
 			return
 		destroy_on_damage_taken = value
 		_on_changed()
-@export var destroy_on_damage_dealt: bool = true:
+@export var destroy_on_damage_dealt: bool:
 	set(value):
 		if destroy_on_damage_dealt == value:
 			return

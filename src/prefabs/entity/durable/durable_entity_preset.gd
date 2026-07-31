@@ -3,6 +3,7 @@ class_name DurableEntityPreset3D
 extends EntityPreset3D
 
 
+@export_group("Self Damage")
 @export var account_for_damage_taken: bool = true:
 	set(value):
 		if account_for_damage_taken == value:
@@ -15,6 +16,7 @@ extends EntityPreset3D
 			return
 		account_for_damage_dealt = value
 		_on_changed()
+@export_subgroup("Bonus", "self_damage")
 @export var self_damage_on_damage_taken: float:
 	set(value):
 		if self_damage_on_damage_taken == value:
