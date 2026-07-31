@@ -20,6 +20,7 @@ signal all_waves_spawned()
 		_update_wave_timer_state()
 @export_group("Waves", "waves")
 @export var waves_available: Array[Wave]
+@export var waves_team: CombatArea3D.Team
 @export var waves_total: int = -1
 @export_group("Spawn")
 @export var bounds: AABB
@@ -134,6 +135,7 @@ func spawn_wave_section(wave_section: WaveSection,
 	var obstacle_transform := Transform3D(transform.basis, obstacle_position)
 	var obstacle := Game.current_level.obstacles.new(obstacle_transform) as Obstacle3D
 	
+	obstacle.team = waves_team
 	obstacle.apply_preset(wave_section.obstacle)
 	
 	return obstacle
