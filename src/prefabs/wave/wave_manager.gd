@@ -147,7 +147,10 @@ func spawn_wave(wave: Wave) -> bool:
 	if not Game.current_level:
 		push_error("Trying to spawn a wave while current level is not fully loaded.")
 		return false
-	if not wave or wave.sections.is_empty():
+	if not wave:
+		push_warning("Trying to spawn a null wave.")
+		return false
+	if wave.sections.is_empty():
 		push_warning("Trying to spawn an empty wave.")
 		return false
 	
