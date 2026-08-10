@@ -5,6 +5,9 @@ extends Resource
 
 signal applied
 
+@export_group("Scale", "scale")
+@export var scale_vector: Vector3 = Vector3.ONE
+@export var scale_multiplier: float = 1.0
 @export_group("Self Destruct", "destroy")
 @export var destroy_on_damage_taken: bool:
 	set(value):
@@ -68,6 +71,8 @@ func apply(entity: Entity3D) -> bool:
 	if not entity.is_node_ready():
 		push_warning("Could not apply preset. Recieved entity node is not ready.")
 		return false
+	
+	entity.scale = scale_vector * scale_multiplier
 	
 	entity.destroy_on_damage_taken = destroy_on_damage_taken
 	entity.destroy_on_damage_dealt = destroy_on_damage_dealt
