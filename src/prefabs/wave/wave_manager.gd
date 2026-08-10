@@ -1,5 +1,5 @@
 @icon("uid://1gmraidhgeij")
-class_name WaveManager
+class_name WaveManager3D
 extends Node3D
 
 

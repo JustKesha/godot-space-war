@@ -1,5 +1,5 @@
-class_name WaveTokenManager
-extends WaveManager
+class_name WaveTokenManager3D
+extends WaveManager3D
 
 
 @export_group("Difficulty", "difficulty")
@@ -24,7 +24,9 @@ var tokens_ratio: float:
 			return
 		var max_ref := tokens_max
 		if is_inf(max_ref):
-			max_ref = _get_available_wave_difficulties().max()
+			var difficulties := _get_available_wave_difficulties()
+			max_ref = (difficulties.max()
+				if not difficulties.is_empty() else 0.0)
 		var total_range := max_ref - tokens_min
 		var target_ratio := clampf(value, 0.0, 1.0)
 		
@@ -32,7 +34,9 @@ var tokens_ratio: float:
 	get():
 		var max_ref := tokens_max
 		if is_inf(max_ref):
-			max_ref = _get_available_wave_difficulties().max()
+			var difficulties := _get_available_wave_difficulties()
+			max_ref = (difficulties.max()
+				if not difficulties.is_empty() else 0.0)
 		var total_range := max_ref - tokens_min
 		if total_range <= 0.0:
 			return 0.0
@@ -68,14 +72,18 @@ func _get_next_wave() -> Wave:
 func _get_available_wave_difficulties() -> Array[float]:
 	var difficulties: Array[float]
 	for wave in waves_available:
-		difficulties.append(wave.difficulty)
+		if wave: difficulties.append(wave.difficulty)
 	return difficulties
 
 
 func _get_token_cashback(wave: Wave) ->  float:
 	var difficulties := _get_available_wave_difficulties()
-	var difficulty_min := difficulties.min() as float
-	var difficulty_max := difficulties.max() as float
+	var difficulty_min := (
+		difficulties.min() as float
+		if not difficulties.is_empty() else 0.0)
+	var difficulty_max := (
+		difficulties.max() as float
+		if not difficulties.is_empty() else 0.0)
 	var difficulty_range := difficulty_max - difficulty_min
 	var difficulty_curve_value := difficulty_curve.sample(progress) if difficulty_curve else progress
 	var difficulty := max(difficulty_curve_value * difficulty_multiplier, difficulty_floor) as float
@@ -92,7 +100,7 @@ func _get_token_cashback(wave: Wave) ->  float:
 func _update_waves_affordable():
 	waves_affordable.clear()
 	for wave in waves_available:
-		if wave.difficulty <= tokens:
+		if wave and wave.difficulty <= tokens:
 			waves_affordable.append(wave)
 
 

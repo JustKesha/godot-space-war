@@ -15,7 +15,7 @@ extends Node3D
 @onready var projectiles: NodePoolManager3D = %Projectiles
 @onready var obstacles: NodePoolManager3D = %Obstacles
 @onready var combatants: NodePoolManager3D = %Combatants
-@onready var wave_manager: WaveManager = %WaveManager
+@onready var wave_manager: WaveManager3D = %WaveManager
 
 
 func _ready():

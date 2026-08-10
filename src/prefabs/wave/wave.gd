@@ -9,6 +9,8 @@ var difficulty: float:
 	get():
 		var total_difficulty := 0.0
 		for section in sections:
+			if not section:
+				continue
 			total_difficulty += section.difficulty
 		return total_difficulty
 var bounds: AABB:
