@@ -3,8 +3,6 @@ class_name CombatantPreset3D
 extends ObstaclePreset3D
 
 
-const IS_COMBATANT: bool = true
-
 @export_group("Gun", "gun")
 @export var gun_projectiles: WeightedResourceDeck
 @export var gun_fire_mode := ShootComponent3D.FireMode.SIMULTANEOUS
