@@ -10,9 +10,11 @@ extends Node3D
 @export_subgroup("Affect Ratio", "drift_affect_ratio")
 @export var drift_affect_ratio_projectiles: float = 1.0
 @export var drift_affect_ratio_obstacles: float = 1.0
+@export var drift_affect_ratio_combatants: float = 1.0
 
 @onready var projectiles: NodePoolManager3D = %Projectiles
 @onready var obstacles: NodePoolManager3D = %Obstacles
+@onready var combatants: NodePoolManager3D = %Combatants
 @onready var wave_manager: WaveManager = %WaveManager
 
 
@@ -37,6 +39,10 @@ func _apply_drift(delta: float):
 	if drift_affect_ratio_obstacles != 0:
 		for obstacle: Obstacle3D in obstacles.active_nodes:
 			obstacle.position += speed * drift_affect_ratio_obstacles
+	
+	if drift_affect_ratio_combatants != 0:
+		for combatant: Combatant3D in combatants.active_nodes:
+			combatant.position += speed * drift_affect_ratio_combatants
 
 
 func clean():

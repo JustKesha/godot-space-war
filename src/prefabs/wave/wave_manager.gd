@@ -133,6 +133,15 @@ func spawn_wave_section(wave_section: WaveSection,
 	
 	var obstacle_position := global_position + wave_offset + wave_section.position
 	var obstacle_transform := Transform3D(transform.basis, obstacle_position)
+	
+	if wave_section.obstacle is CombatantPreset3D:
+		var combatant := Game.current_level.combatants.new(obstacle_transform) as Combatant3D
+		
+		combatant.team = waves_team
+		combatant.apply_preset(wave_section.obstacle)
+		
+		return combatant
+	
 	var obstacle := Game.current_level.obstacles.new(obstacle_transform) as Obstacle3D
 	
 	obstacle.team = waves_team

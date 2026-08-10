@@ -42,6 +42,7 @@ projectiles=""
 entities=""
 durable_entities=""
 obstacles=""
+combatants=""
 
 [physics]
 

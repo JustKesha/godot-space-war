@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dvbwcrsuwdxyr"]
+
+[ext_resource type="PackedScene" uid="uid://bqpvtssfslooi" path="res://prefabs/entity/durable/obstacle/obstacle.tscn" id="1_3htik"]
+[ext_resource type="Script" uid="uid://cnx8ji4ssbrku" path="res://prefabs/entity/durable/obstacle/combatant/combatant.gd" id="2_ajnwg"]
+[ext_resource type="Script" uid="uid://bb6fu0x4ulu81" path="res://prefabs/shoot_component.gd" id="3_nmck2"]
+
+[node name="Combatant3D" unique_id=23279077 groups=["combatants"] instance=ExtResource("1_3htik")]
+script = ExtResource("2_ajnwg")
+
+[node name="Gun" type="Node3D" parent="." index="2" unique_id=1815360826]
+unique_name_in_owner = true
+script = ExtResource("3_nmck2")
+metadata/_custom_type_script = "uid://bb6fu0x4ulu81"
