@@ -28,6 +28,7 @@ signal applied
 			return
 		speed = value
 		_on_changed()
+@export var direction: Vector3 = Vector3.FORWARD
 @export_group("Hurtbox", "hurtbox")
 @export var hurtbox_collider_shape: Shape3D:
 	set(value):
@@ -78,6 +79,7 @@ func apply(entity: Entity3D) -> bool:
 	entity.destroy_on_damage_dealt = destroy_on_damage_dealt
 	
 	entity.movement.speed = speed
+	entity.movement.direction = direction
 	
 	entity.hitbox_collider.shape = hitbox_collider_shape
 	entity.hitbox.damage = hitbox_damage
