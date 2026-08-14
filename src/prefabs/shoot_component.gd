@@ -177,12 +177,16 @@ func _get_shoot_position() -> Vector3:
 
 func _fire_projectile(preset: ProjectilePreset3D,
 	pos: Vector3, dir: Vector3) -> Projectile3D:
+	if not Game.current_level:
+		push_warning("Failed to create a new projectile instance.
+			Current level is not fully loaded.")
+		return null
+	
 	var spawn_transform := Transform3D(Basis.looking_at(dir), pos)
 	var projectile := Game.current_level.projectiles.new(spawn_transform) as Projectile3D
 	
 	if not projectile:
-		push_warning("Failed to create a new projectile instance.
-			Make sure the current_level is assigned.")
+		push_error("Failed to create a new projectile instance.")
 		return null
 	
 	projectile.team = team
