@@ -45,6 +45,38 @@ func _apply_drift(delta: float):
 			combatant.position += speed * drift_affect_ratio_combatants
 
 
+func get_projectiles(exclude_teams: Array[CombatArea3D.Team] = []) -> Array[Projectile3D]:
+	var out: Array[Projectile3D]
+	out.assign(
+		projectiles.active_nodes if exclude_teams.is_empty() else
+		projectiles.active_nodes.filter(func(projectile): return not exclude_teams.has(projectile.team))
+		)
+	return out
+
+
+func get_obstacles(exclude_teams: Array[CombatArea3D.Team] = [],
+	include_combatants: bool = false) -> Array[Obstacle3D]:
+	var out: Array[Obstacle3D]
+	
+	out.assign(obstacles.active_nodes)
+	
+	if include_combatants:
+		out.append_array(get_combatants(exclude_teams))
+	if exclude_teams:
+		out = out.filter(func(obstacle): return not exclude_teams.has(obstacle.team))
+	
+	return out
+
+
+func get_combatants(exclude_teams: Array[CombatArea3D.Team] = []) -> Array[Combatant3D]:
+	var out: Array[Combatant3D]
+	out.assign(
+		combatants.active_nodes if exclude_teams.is_empty() else
+		combatants.active_nodes.filter(func(c): return not exclude_teams.has(c.team))
+		)
+	return out
+
+
 func clean():
 	projectiles.trim()
 	obstacles.trim()
