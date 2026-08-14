@@ -3,8 +3,10 @@ class_name DurableEntity3D
 extends Entity3D
 
 
+@export_group("Self Damage")
 @export var account_for_damage_taken: bool = true
 @export var account_for_damage_dealt: bool = true
+@export_subgroup("Bonus", "self_damage")
 @export var self_damage_on_damage_taken: float
 @export var self_damage_on_damage_dealt: float
 

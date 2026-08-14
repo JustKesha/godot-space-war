@@ -16,6 +16,7 @@ signal destroyed
 			_update_team.call_deferred()
 		if team != team_old:
 			team_changed.emit()
+@export_group("Self Destruct", "destroy")
 @export var destroy_on_damage_taken: bool = true
 @export var destroy_on_damage_dealt: bool = true
 
