@@ -13,7 +13,7 @@ inspired by games like [The Binding of Isaac](https://store.steampowered.com/app
 This is a recreation of my older game jam project, with main goals being improved architecture and expandability.<br>
 The planned gameplay mechanics are roughly outlined in the [progress section](#progress) and are subject to change.
 
-<img alt="sticker" src="https://media.discordapp.net/attachments/840158705990762506/1271471677993255024/SpaceGunner_SeNEM6FIdk.gif?ex=6a831746&is=6a81c5c6&hm=920c5e932ca099fdd5640e72a71a27b3987e320c7d4686b5b70cc866b28214ed&=" width="50%" />
+<img alt="sticker" src="preview/game_jam_version.gif" width="50%" />
 
 ### Progress
 
