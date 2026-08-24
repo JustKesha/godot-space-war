@@ -85,3 +85,12 @@ func clean():
 func clear():
 	projectiles.clear()
 	obstacles.clear()
+
+
+func reset():
+	clear()
+	wave_manager.progress = 0
+
+
+func restart():
+	get_tree().reload_current_scene.call_deferred()
