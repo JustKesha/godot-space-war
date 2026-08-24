@@ -1,7 +1,7 @@
 # 👾 Godot - Space War
 
->[!NOTE]
-><h4>🦑 Early Development Build</h4>
+>[!WARNING]
+>#### 🦑 Early Development Build
 >This project is in an early active-development stage and its foundation may not be fully formed.<br>
 >This includes but is not limited to possible changes to the architecture and class APIs in the near future.<br>
 
@@ -18,15 +18,8 @@ The planned gameplay mechanics are roughly outlined in the [progress section](#p
 ### Progress
 
 - [x] Foundation
-  - [x] Base combat components:<br>Hit, hurt, move, health
-  - [x] Interactive object prefabs:<br>Projectile, obstacle, combatant
-  - [x] Projectile manager / Shoot component
-    - [x] Weighted projectile deck
-    - [x] Interactive object pooling
-  - [x] Enemy wave managing system
-  - [x] Basic player & AI controllers
 - [ ] Playable
-  - [ ] Early test build
+  - [x] [Early test build](https://github.com/JustKesha/godot-space-war/releases#release-v0.0.1)
   - [ ] UI/HUD
   - [ ] Polish
 - [ ] Depth
@@ -40,8 +33,13 @@ The planned gameplay mechanics are roughly outlined in the [progress section](#p
 While this is a small passion project, any help would be welcomed.<br>
 If you're new to Godot or just wanna learn more - you can contact me on [Discord](https://discord.gg/mh6ZwSSPcy).
 
+#### Requirements
+
+- Godot 4.7 or higher
+- [Assets content](#-assets-content)
+
 >[!NOTE]
-><h4>🍤 Assets Content</h4>
+>#### 🍦 Assets Content
 >This repository does not contain the asset folder for this project.<br>
 >A fresh version can be requested through the discord.
 
