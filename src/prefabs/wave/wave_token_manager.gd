@@ -45,6 +45,7 @@ var tokens_ratio: float:
 
 
 func _ready():
+	super()
 	tokens = tokens_start
 	_update_waves_affordable()
 

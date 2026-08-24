@@ -17,7 +17,7 @@ signal all_waves_spawned()
 @export var disabled: bool:
 	set(value):
 		disabled = value
-		_update_wave_timer_state()
+		_update_wave_timer_state.call_deferred()
 @export_group("Waves", "waves")
 @export var waves_available: Array[Wave]
 @export var waves_team: CombatArea3D.Team
@@ -29,11 +29,11 @@ signal all_waves_spawned()
 @export var auto_spawn_delay: float = 1.0:
 	set(value):
 		auto_spawn_delay = value
-		_update_wave_timer_state()
+		_update_wave_timer_state.call_deferred()
 @export var auto_spawn_enabled: bool:
 	set(value):
 		auto_spawn_enabled = value
-		_update_wave_timer_state()
+		_update_wave_timer_state.call_deferred()
 
 var _wave_timer: Timer = Timer.new()
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -71,8 +71,13 @@ var progress: float:
 func _init():
 	_wave_timer.name = 'AutoSpawnTimer'
 	_wave_timer.wait_time = auto_spawn_delay
+	_wave_timer.autostart = true
 	_wave_timer.timeout.connect(_on_wave_timer_timeout)
 	add_child(_wave_timer)
+
+
+func _ready():
+	_update_wave_timer_state()
 
 
 func _update_wave_timer_state():
@@ -80,6 +85,9 @@ func _update_wave_timer_state():
 	
 	_wave_timer.wait_time = auto_spawn_delay
 	_wave_timer.paused = not wave_timer_active
+	
+	if not _wave_timer.is_inside_tree():
+		return
 	
 	if wave_timer_active and (
 		_wave_timer.is_stopped() or _wave_timer.time_left > _wave_timer.wait_time
