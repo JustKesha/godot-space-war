@@ -1,5 +1,7 @@
 # 👾 Godot - Space War
 
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/aa23f754-31d7-486e-8ce6-64eef7bb0137" />
+
 >[!WARNING]
 >#### 🦑 Early Development Build
 >This project is in an early active-development stage and its foundation may not be fully formed.<br>
