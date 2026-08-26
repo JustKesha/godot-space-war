@@ -27,6 +27,10 @@ signal destroyed
 @onready var hurtbox_collider: CollisionShape3D = %Hurtbox/Collider
 
 
+func _ready():
+	pass
+
+
 func _on_hurtbox_damage_taken(_amount: float, _source: HitComponent3D):
 	if destroy_on_damage_taken: destroy()
 

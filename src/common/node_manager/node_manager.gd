@@ -57,6 +57,7 @@ func new(spawn_transform: Transform3D, parent: Node3D = null) -> Node3D:
 		return null
 	
 	new_node.global_transform = spawn_transform
+	new_node._ready.call_deferred()
 	
 	active_nodes.append(new_node)
 	node_spawned.emit(new_node)
