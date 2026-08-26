@@ -42,14 +42,16 @@ enum FireMode {
 		if auto_shoot == value:
 			return
 		auto_shoot = value
-		if auto_shoot: shoot()
+		if auto_shoot:
+			shoot.call_deferred()
 ## If [code]false[/code], will ignore any internal or external [method shoot] calls.
 @export var enabled: bool = true:
 	set(value):
 		if enabled == value:
 			return
 		enabled = value
-		if auto_shoot: shoot()
+		if auto_shoot:
+			shoot.call_deferred()
 @export_group("Directions")
 ## List of direction vectors used for targeting projectiles.
 @export var directions: Array[Vector3] = [Vector3.FORWARD]
@@ -105,7 +107,8 @@ var fire_rate: float:
 
 
 func _ready():
-	if auto_shoot: shoot.call_deferred()
+	if auto_shoot:
+		shoot.call_deferred()
 
 
 func _init_cooldown_timer():
@@ -133,6 +136,8 @@ func _on_cooldown_time_updated():
 
 
 func _get_next_projectile_preset() -> ProjectilePreset3D:
+	if not projectiles:
+		return null
 	return projectiles.draw_next() as ProjectilePreset3D
 
 
