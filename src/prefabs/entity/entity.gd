@@ -16,6 +16,8 @@ signal destroyed
 			_update_team.call_deferred()
 		if team != team_old:
 			team_changed.emit()
+			execute_traits(EntityTrait.Trigger.TEAM_CHANGED)
+@export var traits: Array[EntityTrait]
 @export_group("Self Destruct", "destroy")
 @export var destroy_on_damage_taken: bool = true
 @export var destroy_on_damage_dealt: bool = true
@@ -28,20 +30,30 @@ signal destroyed
 
 
 func _ready():
-	pass
+	# NOTE Should reset any possible entity states (See #69831e9)
+	# Like timers (example: combatant's shoot component cooldown)
+	execute_traits(EntityTrait.Trigger.SPAWNED)
 
 
 func _on_hurtbox_damage_taken(_amount: float, _source: HitComponent3D):
 	if destroy_on_damage_taken: destroy()
+	execute_traits(EntityTrait.Trigger.DAMAGE_TAKEN)
 
 
 func _on_hitbox_hit(_hurt_component: HurtComponent3D):
 	if destroy_on_damage_dealt: destroy()
+	execute_traits(EntityTrait.Trigger.DAMAGE_DEALT)
 
 
 func _update_team():
 	if hitbox: hitbox.team = team
 	if hurtbox: hurtbox.team = team
+
+
+func execute_traits(trigger: EntityTrait.Trigger):
+	for t in traits:
+		if t.triggers.has(trigger):
+			t.execute(self)
 
 
 func apply_preset(preset: EntityPreset3D):
@@ -51,3 +63,4 @@ func apply_preset(preset: EntityPreset3D):
 func destroy():
 	queue_free()
 	destroyed.emit()
+	execute_traits(EntityTrait.Trigger.DESTROYED)
