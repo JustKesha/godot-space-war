@@ -19,6 +19,12 @@ signal damage_changed(new_damage: float)
 			return
 		damage = value
 		damage_changed.emit(damage)
+## The maximum number of successful collisions per frame.
+## Leave at [code]-1[/code] to remove the limit
+@export var hit_limit_per_frame: int = -1
+
+var _frame_hit: int = -1
+var _frame_hit_count: int
 
 
 func _ready():
@@ -35,6 +41,11 @@ func _on_area_entered(area: Area3D):
 ## Returns [code]true[/code] if this [HitComponent3D] is allowed to damage
 ## given [param hurt_component].
 func can_damage(hurt_component: HurtComponent3D) -> bool:
+	if hit_limit_per_frame > 0:
+		var current_frame := Engine.get_physics_frames()
+		if _frame_hit == current_frame and _frame_hit_count >= hit_limit_per_frame:
+			return false
+	
 	if not hurt_component or hurt_component.team == team:
 		return false
 	
@@ -47,6 +58,12 @@ func can_damage(hurt_component: HurtComponent3D) -> bool:
 func apply_hit(hurt_component: HurtComponent3D):
 	if not hurt_component:
 		return
+	
+	var current_frame := Engine.get_physics_frames()
+	if _frame_hit != current_frame:
+		_frame_hit = current_frame
+		_frame_hit_count = 0
+	_frame_hit_count += 1
 	
 	hurt_component.take_damage(damage, self)
 	hit.emit(hurt_component)
