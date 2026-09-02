@@ -16,6 +16,13 @@ signal destroyed
 			_update_team.call_deferred()
 		if team != team_old:
 			team_changed.emit()
+@export var collision_enabled: bool = true:
+	set(value):
+		collision_enabled = value
+		if is_node_ready():
+			_update_collision()
+		else:
+			_update_collision.call_deferred()
 @export_group("Self Destruct", "destroy")
 @export var destroy_on_damage_taken: bool = true
 @export var destroy_on_damage_dealt: bool = true
@@ -28,7 +35,8 @@ signal destroyed
 
 
 func _ready():
-	pass
+	_update_team()
+	_update_collision()
 
 
 func _on_hurtbox_damage_taken(_amount: float, _source: HitComponent3D):
@@ -44,10 +52,16 @@ func _update_team():
 	if hurtbox: hurtbox.team = team
 
 
+func _update_collision():
+	if hitbox: hitbox.set_deferred("monitoring", collision_enabled)
+	if hurtbox: hurtbox.set_deferred("monitorable", collision_enabled)
+
+
 func apply_preset(preset: EntityPreset3D):
 	if preset: preset.apply(self)
 
 
 func destroy():
+	collision_enabled = false
 	queue_free()
 	destroyed.emit()

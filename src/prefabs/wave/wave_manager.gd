@@ -152,8 +152,8 @@ func spawn_wave_section(wave_section: WaveSection,
 	
 	var obstacle := Game.current_level.obstacles.new(obstacle_transform) as Obstacle3D
 	
-	obstacle.team = waves_team
 	obstacle.apply_preset(wave_section.obstacle)
+	obstacle.team = waves_team
 	
 	return obstacle
 

@@ -194,9 +194,9 @@ func _fire_projectile(preset: ProjectilePreset3D,
 		push_error("Failed to create a new projectile instance.")
 		return null
 	
-	projectile.team = team
 	projectile.movement.position = pos
 	projectile.apply_preset(preset)
+	projectile.team = team
 	
 	shot_fired.emit(projectile)
 	

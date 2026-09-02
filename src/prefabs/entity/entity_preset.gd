@@ -11,6 +11,12 @@ signal applied
 			return
 		team = value
 		_on_changed()
+@export var collision_enabled: bool = true:
+	set(value):
+		if collision_enabled == value:
+			return
+		collision_enabled = value
+		_on_changed()
 @export_group("Scale", "scale")
 @export var scale_vector: Vector3 = Vector3.ONE:
 	set(value):
@@ -107,6 +113,7 @@ func apply(entity: Entity3D) -> bool:
 		return false
 	
 	entity.team = team
+	entity.collision_enabled = collision_enabled
 	
 	entity.scale = scale_vector * scale_multiplier
 	

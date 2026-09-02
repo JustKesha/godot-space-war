@@ -10,5 +10,6 @@ func destroy():
 	if not Game.current_level:
 		return super()
 	
+	collision_enabled = false
 	Game.current_level.projectiles.kill(self)
 	destroyed.emit()
