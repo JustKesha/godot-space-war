@@ -1,5 +1,5 @@
-class_name CombatantPlayerController3D
-extends CombatantController3D
+class_name CombatantPlayerController
+extends CombatantController
 
 
 enum Controls {

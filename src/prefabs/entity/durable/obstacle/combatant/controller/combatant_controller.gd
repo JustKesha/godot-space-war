@@ -1,7 +1,7 @@
 @abstract
-@icon("uid://5jiu50ljkcni")
-class_name CombatantController3D
-extends Node3D
+@icon("uid://5x0jp48lvjw7")
+class_name CombatantController
+extends Node
 
 
 @export var combatant: Combatant3D

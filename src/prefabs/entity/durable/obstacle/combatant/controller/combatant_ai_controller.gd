@@ -1,6 +1,6 @@
-@icon("uid://cwdhm7f8w4uko")
-class_name CombatantAIController3D
-extends CombatantController3D
+@icon("uid://e673yjoy55c1")
+class_name CombatantAIController
+extends CombatantController
 
 
 @export var target: Entity3D
