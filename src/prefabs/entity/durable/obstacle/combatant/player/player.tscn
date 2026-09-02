@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d3e6vrcfgchg6"]
+
+[ext_resource type="PackedScene" uid="uid://dvbwcrsuwdxyr" path="res://prefabs/entity/durable/obstacle/combatant/combatant.tscn" id="1_aesly"]
+[ext_resource type="Script" uid="uid://34wjklc2d8ln" path="res://prefabs/entity/durable/obstacle/combatant/controller/combatant_player_controller.gd" id="2_n1oyh"]
+[ext_resource type="Script" uid="uid://bgo0xiguk2ker" path="res://prefabs/entity/durable/obstacle/combatant/player/player.gd" id="2_vcmli"]
+
+[node name="Player3D" unique_id=23279077 instance=ExtResource("1_aesly")]
+script = ExtResource("2_vcmli")
+
+[node name="Controller" type="Node" parent="." index="2" unique_id=1920376310 node_paths=PackedStringArray("combatant")]
+unique_name_in_owner = true
+script = ExtResource("2_n1oyh")
+combatant = NodePath("..")
+metadata/_custom_type_script = "uid://34wjklc2d8ln"
