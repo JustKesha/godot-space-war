@@ -18,6 +18,12 @@ extends DurableEntityPreset3D
 		_on_changed()
 		if sprite_frames and not sprite_frames.changed.is_connected(_on_changed):
 			sprite_frames.changed.connect(_on_changed)
+@export var sprite_billboard := BaseMaterial3D.BillboardMode.BILLBOARD_FIXED_Y:
+	set(value):
+		if sprite_billboard == value:
+			return
+		sprite_billboard = value
+		_on_changed()
 
 
 func apply(entity: Entity3D) -> bool:
@@ -28,5 +34,6 @@ func apply(entity: Entity3D) -> bool:
 		return false
 	
 	obstacle.sprite.sprite_frames = sprite_frames
+	obstacle.sprite.billboard = sprite_billboard
 	
 	return super(entity)
