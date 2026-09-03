@@ -37,7 +37,7 @@ enum FireMode {
 ## calling [method shoot] every time the [signal cooldown_ended] is emited.
 ## [br][br][b]Note:[/b] The [member cooldown] must be greater than [code]0[/code]
 ## in order for this to work.
-@export var auto_shoot: bool = false:
+@export var auto_shoot: bool:
 	set(value):
 		if auto_shoot == value:
 			return
@@ -73,10 +73,7 @@ enum FireMode {
 		if cooldown == value:
 			return
 		cooldown = clampf(value, 0, INF)
-		if is_node_ready():
-			_on_cooldown_time_updated()
-		else:
-			_on_cooldown_time_updated.call_deferred()
+		_on_cooldown_time_updated.call_deferred()
 
 var _current_direction_index: int
 var _cooldown_timer: Timer:
@@ -108,11 +105,11 @@ var fire_rate: float:
 
 func _ready():
 	if auto_shoot:
-		shoot.call_deferred()
+		shoot()
 
 
 func _init_cooldown_timer():
-	if _cooldown_timer:
+	if not is_node_ready() or _cooldown_timer:
 		return
 	_cooldown_timer = Timer.new()
 	_cooldown_timer.one_shot = true
@@ -126,6 +123,8 @@ func _on_cooldown_end():
 
 
 func _on_cooldown_time_updated():
+	if not is_node_ready():
+		return
 	if not _cooldown_timer:
 		_init_cooldown_timer()
 	if cooldown > 0:
@@ -267,7 +266,6 @@ func set_on_cooldown(cooldown_duration: float = -1):
 ## Stops the cooldown timer early and emits [signal cooldown_ended].
 ## See [method set_on_cooldown].
 func reset_cooldown():
-	if not on_cooldown:
-		return
-	_cooldown_timer.stop()
-	_on_cooldown_end()
+	if on_cooldown:
+		_cooldown_timer.stop()
+		_on_cooldown_end()

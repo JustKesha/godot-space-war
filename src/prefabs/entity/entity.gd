@@ -12,8 +12,6 @@ signal destroyed
 		team = value
 		if is_node_ready():
 			_update_team()
-		else:
-			_update_team.call_deferred()
 		if team != team_old:
 			team_changed.emit()
 @export var collision_enabled: bool = true:
@@ -21,8 +19,6 @@ signal destroyed
 		collision_enabled = value
 		if is_node_ready():
 			_update_collision()
-		else:
-			_update_collision.call_deferred()
 @export_group("Self Destruct", "destroy")
 @export var destroy_on_damage_taken: bool = true
 @export var destroy_on_damage_dealt: bool = true
