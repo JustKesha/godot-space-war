@@ -16,9 +16,8 @@ func _update_team():
 	super()
 
 
-func destroy():
-	if not Game.current_level:
-		return super()
-	
-	Game.current_level.combatants.kill(self)
-	destroyed.emit()
+func _dispose():
+	if Game.current_level:
+		Game.current_level.combatants.kill(self)
+	else:
+		super()

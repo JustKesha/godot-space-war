@@ -57,7 +57,11 @@ func apply_preset(preset: EntityPreset3D):
 	if preset: preset.apply(self)
 
 
+func _dispose():
+	queue_free()
+
+
 func destroy():
 	collision_enabled = false
-	queue_free()
+	_dispose()
 	destroyed.emit()

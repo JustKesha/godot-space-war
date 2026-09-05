@@ -6,9 +6,8 @@ extends DurableEntity3D
 @onready var sprite: AnimatedSprite3D = %Sprite
 
 
-func destroy():
-	if not Game.current_level:
-		return super()
-	
-	Game.current_level.obstacles.kill(self)
-	destroyed.emit()
+func _dispose():
+	if Game.current_level:
+		Game.current_level.obstacles.kill(self)
+	else:
+		super()

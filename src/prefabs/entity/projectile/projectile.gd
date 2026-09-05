@@ -6,10 +6,8 @@ extends Entity3D
 @onready var mesh: MeshInstance3D = %Mesh
 
 
-func destroy():
-	if not Game.current_level:
-		return super()
-	
-	collision_enabled = false
-	Game.current_level.projectiles.kill(self)
-	destroyed.emit()
+func _dispose():
+	if Game.current_level:
+		Game.current_level.projectiles.kill(self)
+	else:
+		super()
