@@ -11,3 +11,5 @@ script = ExtResource("2_ajnwg")
 unique_name_in_owner = true
 script = ExtResource("3_nmck2")
 metadata/_custom_type_script = "uid://bb6fu0x4ulu81"
+
+[connection signal="projectile_fired" from="Gun" to="." method="_on_projectile_fired"]

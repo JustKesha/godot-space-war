@@ -12,8 +12,8 @@ func _ready():
 
 
 func _update_team():
-	if gun: gun.team = team
 	super()
+	if gun: gun.team = team
 
 
 func _dispose():
@@ -21,3 +21,8 @@ func _dispose():
 		Game.current_level.combatants.dispose(self)
 	else:
 		super()
+
+
+func _on_projectile_fired(projectile: Projectile3D):
+	if is_instance_valid(projectile):
+		projectile.set_signature(get_signature())
