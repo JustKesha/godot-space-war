@@ -33,6 +33,8 @@ func apply(entity: Entity3D) -> bool:
 		push_error("Could not apply preset. Recieved entity is not an obstacle.")
 		return false
 	
+	obstacle.difficulty = difficulty
+	
 	obstacle.sprite.sprite_frames = sprite_frames
 	obstacle.sprite.billboard = sprite_billboard
 	

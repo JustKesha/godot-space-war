@@ -5,6 +5,7 @@
 
 [node name="Obstacle3D" unique_id=23279077 groups=["obstacles"] instance=ExtResource("1_48avm")]
 script = ExtResource("2_8tnkb")
+difficulty = 0.0
 
 [node name="Sprite" type="AnimatedSprite3D" parent="." index="4" unique_id=1114398105]
 unique_name_in_owner = true
