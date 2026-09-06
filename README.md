@@ -35,9 +35,9 @@ The project theme is yet to be settled on but if nothing changes, it will receiv
 
 - [x] Foundation
 - [ ] Playable
-  - [x] Wave manager
+  - [x] [Wave manager](https://github.com/JustKesha/godot-space-war/blob/main/src/prefabs/wave/wave_manager.gd)
   - [x] [Early test build](https://github.com/JustKesha/godot-space-war/releases#release-v0.0.1)
-  - [ ] Score system
+  - [x] [Score system](./src/prefabs/score_component.gd)
   - [ ] UI/HUD
 - [ ] Expansion
   - [ ] Stat system
@@ -105,7 +105,6 @@ Parent objects can directly tell their child components to do something by calli
 >This is a flexible guideline rather than a strict, unbreakable rule.  
 >Use best judgment if a specific situation requires a different approach.  
 
-
 #### Hierarchy
 
 The foundation of every object in the game relies on two main concepts: inheritance for the node structure, and preset resources for the settings.  
@@ -117,3 +116,11 @@ Specialized game objects (like player, enemies or projectiles) are created by ex
 - **Preset Resources:**  
 To change how an object behaves or looks, the project uses custom data files called presets (such as an [Entity Preset](./src/prefabs/entity/entity_preset.gd) or [Player Preset](./src/prefabs/entity/durable/obstacle/combatant/player/player_preset.gd)).
 These files hold settings and variables. Instead of changing the code, settings are changed by swapping or adjusting these decoupled resource files.  
+
+#### Signatures
+
+To handle tracking and data validation securely across separate instances, the project utilizes an internal signature pipeline via metadata.
+
+* **Decoupled Ownership:** Projectiles and specialized sub-components (like hitboxes) inherit a unique signature identifier from their parent shooter or creator node upon instantiation.
+* **Memory Safety:** Instead of exposing or querying fragile, raw node references that might turn into corrupted memory addresses upon being freed (`queue_free()`), systems pass around raw, stable signature integers.
+* **Unified Event Bus Integration:** Global hooks like `Events.entity_destroyed` leverage these integer signatures to seamlessly distribute kill-credit and parse combat logic in isolated modules like the [Score Component](./src/prefabs/score_component.gd).
