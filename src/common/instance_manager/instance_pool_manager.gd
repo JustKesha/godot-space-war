@@ -17,7 +17,7 @@ signal pool_emptied()
 @export var auto_trim_delay: float = 10.0
 
 var _trim_timer: Timer
-var _active_nodes_peak: float
+var _active_instances_peak: float
 var pooled_instances: Array[Node3D]
 
 
@@ -34,8 +34,8 @@ func _init_trim_timer():
 
 
 func _update_trim_timer():
-	if auto_trim_enabled and active_instances.size() > _active_nodes_peak:
-		_active_nodes_peak = clamp(active_instances.size(), pool_size_min, pool_size_max)
+	if auto_trim_enabled and active_instances.size() > _active_instances_peak:
+		_active_instances_peak = clamp(active_instances.size(), pool_size_min, pool_size_max)
 		_trim_timer.start(auto_trim_delay)
 
 
@@ -54,31 +54,31 @@ func _get_new_instance() -> Node3D:
 	
 	old_instance._ready.call_deferred()
 	
-	_set_node_active(old_instance, true)
+	_set_instance_active(old_instance, true)
 	instance_activated.emit(old_instance)
 	
 	return old_instance
 
 
-func _dispose(node: Node3D):
+func _dispose(instance: Node3D):
 	if pooled_instances.size() >= pool_size_max:
-		super(node)
+		super(instance)
 		return
 	
-	if not node in pooled_instances:
-		pooled_instances.append(node)
-		_set_node_active(node, false)
-		instance_dispoed.emit(node)
-		instance_pooled.emit(node)
+	if not instance in pooled_instances:
+		pooled_instances.append(instance)
+		_set_instance_active(instance, false)
+		instance_dispoed.emit(instance)
+		instance_pooled.emit(instance)
 
 
-static func _set_node_active(node: Node3D, active: bool = true):
+static func _set_instance_active(instance: Node3D, active: bool = true):
 	if active:
-		node.process_mode = Node3D.PROCESS_MODE_INHERIT
-		node.show()
+		instance.process_mode = Node3D.PROCESS_MODE_INHERIT
+		instance.show()
 	else:
-		node.set_deferred("process_mode", Node3D.PROCESS_MODE_DISABLED)
-		node.hide.call_deferred()
+		instance.set_deferred("process_mode", Node3D.PROCESS_MODE_DISABLED)
+		instance.hide.call_deferred()
 
 
 func trim(limit: int = -1) -> int:
@@ -90,9 +90,9 @@ func trim(limit: int = -1) -> int:
 	var trimmed := 0
 	
 	while pooled_instances.size() > limit:
-		var excess_node = pooled_instances.pop_back()
-		if is_instance_valid(excess_node):
-			excess_node.queue_free()
+		var excess_instance = pooled_instances.pop_back()
+		if is_instance_valid(excess_instance):
+			excess_instance.queue_free()
 			trimmed += 1
 	
 	pool_trimmed.emit(trimmed)
