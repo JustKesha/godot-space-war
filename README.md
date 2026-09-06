@@ -1,5 +1,11 @@
 # 👾 Godot - Space War
 
+[![Static Badge](https://img.shields.io/badge/Discord-%235865F2?style=flat-square&logo=discord&logoColor=%235865F2&color=%23000000)](https://discord.gg/mh6ZwSSPcy)
+[![Static Badge](https://img.shields.io/badge/Releases-%23478CBF?style=flat-square&logo=godotengine&color=%23000)](https://github.com/JustKesha/godot-space-war/releases)
+[![Static Badge](https://img.shields.io/badge/Documentation-%239E95B7?style=flat-square&logo=refinedgithub&color=%23000)](#documentation)
+[![Static Badge](https://img.shields.io/badge/Contribution-%239E95B7?style=flat-square&logo=refinedgithub&color=%23000)](#contribution)
+[![Static Badge](https://img.shields.io/badge/Issues-%239E95B7?style=flat-square&logo=refinedgithub&color=%23000)](https://github.com/JustKesha/godot-space-war/issues)
+
 >[!WARNING]
 >#### 🐙 Early Development Stage
 >This project is in an early active-development stage and its foundation may not be fully formed.  
