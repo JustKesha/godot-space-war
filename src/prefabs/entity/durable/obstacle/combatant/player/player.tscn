@@ -3,11 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://dvbwcrsuwdxyr" path="res://prefabs/entity/durable/obstacle/combatant/combatant.tscn" id="1_aesly"]
 [ext_resource type="Script" uid="uid://34wjklc2d8ln" path="res://prefabs/entity/durable/obstacle/combatant/controller/combatant_player_controller.gd" id="2_n1oyh"]
 [ext_resource type="Script" uid="uid://bgo0xiguk2ker" path="res://prefabs/entity/durable/obstacle/combatant/player/player.gd" id="2_vcmli"]
+[ext_resource type="Script" uid="uid://bp4papwko6k3k" path="res://prefabs/score_component.gd" id="3_tp3eh"]
 
 [node name="Player3D" unique_id=23279077 instance=ExtResource("1_aesly")]
 script = ExtResource("2_vcmli")
 
-[node name="Controller" type="Node" parent="." index="2" unique_id=1920376310 node_paths=PackedStringArray("combatant")]
+[node name="Score" type="Node" parent="." index="2" unique_id=1015870885 node_paths=PackedStringArray("parent")]
+unique_name_in_owner = true
+script = ExtResource("3_tp3eh")
+parent = NodePath("..")
+multiplier = 10.0
+metadata/_custom_type_script = "uid://bp4papwko6k3k"
+
+[node name="Controller" type="Node" parent="." index="3" unique_id=1920376310 node_paths=PackedStringArray("combatant")]
 unique_name_in_owner = true
 script = ExtResource("2_n1oyh")
 combatant = NodePath("..")
