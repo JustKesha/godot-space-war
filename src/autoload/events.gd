@@ -3,4 +3,4 @@ extends Node
 
 
 @warning_ignore("unused_signal")
-signal entity_destroyed(entity: Entity3D)
+signal entity_destroyed(entity: Entity3D, killer_signature: int)

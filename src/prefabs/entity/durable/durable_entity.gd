@@ -14,15 +14,15 @@ extends Entity3D
 
 
 func _on_hurtbox_damage_taken(amount: float, source: HitComponent3D):
+	super(amount, source)
 	health.decrease(self_damage_on_damage_taken
 		+ (amount if account_for_damage_taken else 0.0))
-	super(amount, source)
 
 
 func _on_hitbox_hit(hurt_component: HurtComponent3D):
+	super(hurt_component)
 	health.decrease(self_damage_on_damage_dealt
 		+ (hitbox.damage if account_for_damage_dealt else 0.0))
-	super(hurt_component)
 
 
 func _on_health_minimum_value_reached():

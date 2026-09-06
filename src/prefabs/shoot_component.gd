@@ -9,7 +9,7 @@ signal fired()
 ## Emitted when a projectile is spawned.
 ## [br][br][b]Note:[/b] Can fire multiple times per one [method shoot] call.
 ## See [member fire_mode] and [signal fired].
-signal shot_fired(projectile: Projectile3D)
+signal projectile_fired(projectile: Projectile3D)
 ## Emitted when the firing cooldown starts.
 signal cooldown_started(duration: float)
 ## Emitted when the firing cooldown ends.
@@ -197,7 +197,7 @@ func _fire_projectile(preset: ProjectilePreset3D,
 	projectile.apply_preset(preset)
 	projectile.team = team
 	
-	shot_fired.emit(projectile)
+	projectile_fired.emit(projectile)
 	
 	return projectile
 

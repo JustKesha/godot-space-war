@@ -4,7 +4,7 @@ extends Node3D
 
 
 signal team_changed
-signal destroyed
+signal destroyed(killer_signature: int)
 
 @export var team: CombatArea3D.Team:
 	set(value):
@@ -29,18 +29,36 @@ signal destroyed
 @onready var hurtbox: HurtComponent3D = %Hurtbox
 @onready var hurtbox_collider: CollisionShape3D = %Hurtbox/Collider
 
+var was_destroyed: bool
+var _last_damage_source: HitComponent3D
+
 
 func _ready():
+	was_destroyed = false
+	_last_damage_source = null
+	_update_signature()
 	_update_team()
 	_update_collision()
 
 
-func _on_hurtbox_damage_taken(_amount: float, _source: HitComponent3D):
+func _on_hurtbox_damage_taken(_amount: float, source: HitComponent3D):
+	_last_damage_source = source
 	if destroy_on_damage_taken: destroy()
 
 
 func _on_hitbox_hit(_hurt_component: HurtComponent3D):
 	if destroy_on_damage_dealt: destroy()
+
+
+func _remove_signature():
+	Utils.clear_signature(self)
+	Utils.clear_signature(hitbox)
+
+
+func _update_signature():
+	if not Utils.has_signature(self):
+		Utils.generate_and_set_instance_signature(self)
+	Utils.sign_instance.call_deferred(hitbox, self)
 
 
 func _update_team():
@@ -53,15 +71,34 @@ func _update_collision():
 	if hurtbox: hurtbox.set_deferred("monitorable", collision_enabled)
 
 
-func apply_preset(preset: EntityPreset3D):
-	if preset: preset.apply(self)
-
-
 func _dispose():
 	queue_free()
 
 
 func destroy():
+	if was_destroyed:
+		return
+	
+	was_destroyed = true
 	collision_enabled = false
+	
+	_remove_signature.call_deferred()
 	_dispose()
-	destroyed.emit()
+	
+	var killer_signature := Utils.get_instance_signature(_last_damage_source)
+	
+	destroyed.emit(killer_signature)
+	Events.entity_destroyed.emit(self, killer_signature)
+
+
+func get_signature() -> int:
+	return Utils.get_instance_signature(self)
+
+
+func set_signature(new_signature: int):
+	Utils.set_instance_signature(self, new_signature)
+	_update_signature()
+
+
+func apply_preset(preset: EntityPreset3D):
+	if preset: preset.apply(self)
