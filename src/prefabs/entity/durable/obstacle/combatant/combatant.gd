@@ -7,8 +7,8 @@ extends Obstacle3D
 
 
 func _ready():
-	gun.reset_cooldown()
 	super()
+	gun.reset_cooldown()
 
 
 func _update_team():
@@ -18,6 +18,6 @@ func _update_team():
 
 func _dispose():
 	if Game.current_level:
-		Game.current_level.combatants.kill(self)
+		Game.current_level.combatants.dispose(self)
 	else:
 		super()

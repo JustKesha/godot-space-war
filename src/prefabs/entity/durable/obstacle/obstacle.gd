@@ -8,6 +8,6 @@ extends DurableEntity3D
 
 func _dispose():
 	if Game.current_level:
-		Game.current_level.obstacles.kill(self)
+		Game.current_level.obstacles.dispose(self)
 	else:
 		super()

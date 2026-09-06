@@ -8,6 +8,6 @@ extends Entity3D
 
 func _dispose():
 	if Game.current_level:
-		Game.current_level.projectiles.kill(self)
+		Game.current_level.projectiles.dispose(self)
 	else:
 		super()

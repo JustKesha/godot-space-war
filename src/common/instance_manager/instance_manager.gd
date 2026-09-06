@@ -1,79 +1,85 @@
 @icon("uid://b77w112m7u70u")
-class_name NodeManager3D
+class_name InstanceManager3D
 extends Node3D
-## Manages and keeps track of [Node3D] instances.
+## Manages and keeps track of [PackedScene] ([Node3D]) instances.
 ##
 ## [b]Note:[/b] This class extends [Node3D] instead of [Node] only
 ## because of the specifics of the current project. It can be easily changed
-## into a more generic "NodeManager" or even "NodeManager2D" as it does not
+## into a "InstanceManager2D" or even a more generic "InstanceManager" as it does not
 ## require or use any dimension-specific logic.
 
 
-signal node_spawned(node: Node3D)
-signal node_killed(node: Node3D)
-signal all_nodes_killed()
+signal instance_spawned(instance: Node3D)
+signal instance_dispoed(instance: Node3D)
+signal all_instances_dispoed()
 
 @export var packed_scene: PackedScene
-@export var host: Node3D
+@export var default_parent: Node3D
 
-var active_nodes: Array[Node3D]
+var active_instances: Array[Node3D]
 
 
 func _ready():
 	assert(packed_scene, "The packed_scene is not assigned.")
 
 
-func _get_new_instance(parent: Node3D) -> Node3D:
+func _get_new_instance() -> Node3D:
 	if not packed_scene:
 		push_error("The packed_scene is not assigned.")
 		return null
 	
-	var new_node := packed_scene.instantiate() as Node3D
+	var new_instance := packed_scene.instantiate() as Node3D
 	
-	if not new_node:
+	if not new_instance:
 		push_error("The assigned packed_scene is not a Node3D.")
 		return null
 	
-	parent.add_child(new_node)
+	return new_instance
+
+
+func _set_instance_parent(instance: Node3D, parent: Node3D = null):
+	if not is_instance_valid(parent):
+		parent = default_parent if is_instance_valid(default_parent) else self
 	
-	return new_node
+	if instance.is_inside_tree():
+		instance.reparent(parent)
+	else:
+		parent.add_child(instance)
 
 
-func _dispose(node: Node3D):
-	if not is_instance_valid(node):
+func _dispose(instance: Node3D):
+	if not is_instance_valid(instance):
 		return
 	
-	node.queue_free()
-	node_killed.emit(node)
+	instance.queue_free()
+	instance_dispoed.emit(instance)
 
 
 func new(spawn_transform: Transform3D, parent: Node3D = null) -> Node3D:
-	if not is_instance_valid(parent):
-		parent = host if is_instance_valid(host) else self
+	var new_instance := _get_new_instance()
 	
-	var new_node := _get_new_instance(parent)
-	
-	if not new_node:
+	if not is_instance_valid(new_instance):
 		return null
 	
-	new_node.global_transform = spawn_transform
-	new_node._ready.call_deferred()
+	new_instance.global_transform = spawn_transform
 	
-	active_nodes.append(new_node)
-	node_spawned.emit(new_node)
+	_set_instance_parent(new_instance, parent)
 	
-	return new_node
+	active_instances.append(new_instance)
+	instance_spawned.emit(new_instance)
+	
+	return new_instance
 
 
-func kill(node: Node3D):
-	if node in active_nodes:
-		active_nodes.erase(node)
-	_dispose(node)
-	if active_nodes.is_empty():
-		all_nodes_killed.emit()
+func dispose(instance: Node3D):
+	if instance in active_instances:
+		active_instances.erase(instance)
+	_dispose(instance)
+	if active_instances.is_empty():
+		all_instances_dispoed.emit()
 
 
 func clear():
-	var targets := active_nodes.duplicate()
-	for node in targets:
-		kill(node)
+	var instances := active_instances.duplicate()
+	for instance in instances:
+		dispose(instance)

@@ -12,9 +12,9 @@ extends Node3D
 @export var drift_affect_ratio_obstacles: float = 1.0
 @export var drift_affect_ratio_combatants: float = 1.0
 
-@onready var projectiles: NodePoolManager3D = %Projectiles
-@onready var obstacles: NodePoolManager3D = %Obstacles
-@onready var combatants: NodePoolManager3D = %Combatants
+@onready var projectiles: InstanceManager3D = %Projectiles
+@onready var obstacles: InstanceManager3D = %Obstacles
+@onready var combatants: InstanceManager3D = %Combatants
 @onready var wave_manager: WaveManager3D = %WaveManager
 
 
@@ -33,23 +33,23 @@ func _apply_drift(delta: float):
 	var speed := drift_direction * drift_speed * delta
 	
 	if drift_affect_ratio_projectiles != 0:
-		for projectile: Projectile3D in projectiles.active_nodes:
+		for projectile: Projectile3D in projectiles.active_instances:
 			projectile.position += speed * drift_affect_ratio_projectiles
 	
 	if drift_affect_ratio_obstacles != 0:
-		for obstacle: Obstacle3D in obstacles.active_nodes:
+		for obstacle: Obstacle3D in obstacles.active_instances:
 			obstacle.position += speed * drift_affect_ratio_obstacles
 	
 	if drift_affect_ratio_combatants != 0:
-		for combatant: Combatant3D in combatants.active_nodes:
+		for combatant: Combatant3D in combatants.active_instances:
 			combatant.position += speed * drift_affect_ratio_combatants
 
 
 func get_projectiles(exclude_teams: Array[CombatArea3D.Team] = []) -> Array[Projectile3D]:
 	var out: Array[Projectile3D]
 	out.assign(
-		projectiles.active_nodes if exclude_teams.is_empty() else
-		projectiles.active_nodes.filter(func(projectile): return not exclude_teams.has(projectile.team))
+		projectiles.active_instances if exclude_teams.is_empty() else
+		projectiles.active_instances.filter(func(projectile): return not exclude_teams.has(projectile.team))
 		)
 	return out
 
@@ -58,7 +58,7 @@ func get_obstacles(exclude_teams: Array[CombatArea3D.Team] = [],
 	include_combatants: bool = false) -> Array[Obstacle3D]:
 	var out: Array[Obstacle3D]
 	
-	out.assign(obstacles.active_nodes)
+	out.assign(obstacles.active_instances)
 	
 	if include_combatants:
 		out.append_array(get_combatants(exclude_teams))
@@ -71,8 +71,8 @@ func get_obstacles(exclude_teams: Array[CombatArea3D.Team] = [],
 func get_combatants(exclude_teams: Array[CombatArea3D.Team] = []) -> Array[Combatant3D]:
 	var out: Array[Combatant3D]
 	out.assign(
-		combatants.active_nodes if exclude_teams.is_empty() else
-		combatants.active_nodes.filter(func(c): return not exclude_teams.has(c.team))
+		combatants.active_instances if exclude_teams.is_empty() else
+		combatants.active_instances.filter(func(c): return not exclude_teams.has(c.team))
 		)
 	return out
 
