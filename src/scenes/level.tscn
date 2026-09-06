@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://btegtrerbj3a1"]
 
 [ext_resource type="Script" uid="uid://djqg6l45igd6u" path="res://scenes/level.gd" id="1_2q6dc"]
-[ext_resource type="Script" uid="uid://bcdhecqxnljky" path="res://common/instance_manager/instance_manager.gd" id="2_2r41h"]
+[ext_resource type="Script" uid="uid://cp0y83q487vi8" path="res://common/instance_manager/instance_pool_manager.gd" id="2_w8frs"]
 [ext_resource type="PackedScene" uid="uid://co18sy5pxk2ya" path="res://prefabs/entity/projectile/projectile.tscn" id="3_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://bqpvtssfslooi" path="res://prefabs/entity/durable/obstacle/obstacle.tscn" id="4_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://dvbwcrsuwdxyr" path="res://prefabs/entity/durable/obstacle/combatant/combatant.tscn" id="5_2r41h"]
@@ -13,23 +13,25 @@ drift_enabled = true
 drift_speed = 4.0
 drift_affect_ratio_projectiles = 0.0
 
-[node name="Projectiles" type="Node3D" parent="." unique_id=1627203788]
+[node name="Projectiles" type="Node3D" parent="." unique_id=1146860563]
 unique_name_in_owner = true
-script = ExtResource("2_2r41h")
+script = ExtResource("2_w8frs")
+pool_size_min = 100
+pool_size_max = 1000
 packed_scene = ExtResource("3_mx8sn")
-metadata/_custom_type_script = "uid://bcdhecqxnljky"
+metadata/_custom_type_script = "uid://cp0y83q487vi8"
 
-[node name="Obstacles" type="Node3D" parent="." unique_id=1034077094]
+[node name="Obstacles" type="Node3D" parent="." unique_id=426135881]
 unique_name_in_owner = true
-script = ExtResource("2_2r41h")
+script = ExtResource("2_w8frs")
 packed_scene = ExtResource("4_mx8sn")
-metadata/_custom_type_script = "uid://bcdhecqxnljky"
+metadata/_custom_type_script = "uid://cp0y83q487vi8"
 
-[node name="Combatants" type="Node3D" parent="." unique_id=890212643]
+[node name="Combatants" type="Node3D" parent="." unique_id=296155601]
 unique_name_in_owner = true
-script = ExtResource("2_2r41h")
+script = ExtResource("2_w8frs")
 packed_scene = ExtResource("5_2r41h")
-metadata/_custom_type_script = "uid://bcdhecqxnljky"
+metadata/_custom_type_script = "uid://cp0y83q487vi8"
 
 [node name="WaveManager" type="Node3D" parent="." unique_id=1884949723]
 unique_name_in_owner = true

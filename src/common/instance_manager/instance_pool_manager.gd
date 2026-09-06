@@ -1,11 +1,12 @@
-class_name NodePoolManager3D
-extends NodeManager3D
-## Pools [Node3D] instances to minimize runtime instantiation overhead.
+class_name InstancePoolManager3D
+extends InstanceManager3D
+## Pools [PackedScene] ([Node3D]) instances to minimize runtime instantiation overhead.
+##
+## TASK Pre-instantiation up to [member pool_size_min] amount.
 
-
-signal node_activated(node: Node3D)
-signal node_pooled(node: Node3D)
-signal pool_trimmed(elements_trimmed: int)
+signal instance_activated(instance: Node3D)
+signal instance_pooled(instance: Node3D)
+signal pool_trimmed(instances_trimmed: int)
 signal pool_emptied()
 
 @export_group("Pool Size", "pool_size")
@@ -17,7 +18,7 @@ signal pool_emptied()
 
 var _trim_timer: Timer
 var _active_nodes_peak: float
-var pooled_nodes: Array[Node3D]
+var pooled_instances: Array[Node3D]
 
 
 func _ready():
@@ -33,37 +34,42 @@ func _init_trim_timer():
 
 
 func _update_trim_timer():
-	if auto_trim_enabled and active_nodes.size() > _active_nodes_peak:
-		_active_nodes_peak = clamp(active_nodes.size(), pool_size_min, pool_size_max)
+	if auto_trim_enabled and active_instances.size() > _active_nodes_peak:
+		_active_nodes_peak = clamp(active_instances.size(), pool_size_min, pool_size_max)
 		_trim_timer.start(auto_trim_delay)
 
 
-func _get_new_instance(parent: Node3D) -> Node3D:
+func _get_new_instance() -> Node3D:
 	_update_trim_timer()
 	
-	if pooled_nodes.is_empty():
-		pool_emptied.emit()
-		return super(parent)
+	if pooled_instances.is_empty():
+		return super()
 	
-	var old_node := pooled_nodes.pop_back() as Node3D
+	var old_instance := pooled_instances.pop_back() as Node3D
 	
-	_set_node_parent(old_node, parent)
-	_set_node_active(old_node, true)
-	node_activated.emit(old_node)
+	if not is_instance_valid(old_instance) or not old_instance.is_inside_tree():
+		push_error("The pool contained an invalid instance of a Node3D,
+			or the instance was pooled before it could get into the scene tree.")
+		return null
 	
-	return old_node
+	old_instance._ready.call_deferred()
+	
+	_set_node_active(old_instance, true)
+	instance_activated.emit(old_instance)
+	
+	return old_instance
 
 
 func _dispose(node: Node3D):
-	if pooled_nodes.size() >= pool_size_max:
+	if pooled_instances.size() >= pool_size_max:
 		super(node)
 		return
 	
-	if not node in pooled_nodes:
-		pooled_nodes.append(node)
+	if not node in pooled_instances:
+		pooled_instances.append(node)
 		_set_node_active(node, false)
-		node_killed.emit(node)
-		node_pooled.emit(node)
+		instance_dispoed.emit(node)
+		instance_pooled.emit(node)
 
 
 static func _set_node_active(node: Node3D, active: bool = true):
@@ -75,17 +81,6 @@ static func _set_node_active(node: Node3D, active: bool = true):
 		node.hide.call_deferred()
 
 
-static func _set_node_parent(node: Node3D, new_parent: Node3D):
-	if node.get_parent() == new_parent:
-		return
-	
-	if node.get_parent():
-		node.get_parent().remove_child(node)
-	
-	if is_instance_valid(new_parent):
-		new_parent.add_child(node)
-
-
 func trim(limit: int = -1) -> int:
 	if limit < 0:
 		limit = pool_size_min
@@ -94,11 +89,13 @@ func trim(limit: int = -1) -> int:
 	
 	var trimmed := 0
 	
-	while pooled_nodes.size() > limit:
-		var excess_node = pooled_nodes.pop_back()
+	while pooled_instances.size() > limit:
+		var excess_node = pooled_instances.pop_back()
 		if is_instance_valid(excess_node):
 			excess_node.queue_free()
 			trimmed += 1
 	
 	pool_trimmed.emit(trimmed)
+	if pooled_instances.is_empty():
+		pool_emptied.emit()
 	return trimmed
