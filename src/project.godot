@@ -19,6 +19,7 @@ config/icon="uid://cii8vt46tpsta"
 [autoload]
 
 Game="*uid://c71hbqe6y5hh1"
+Events="*uid://dancpqn8du0ep"
 
 [display]
 
