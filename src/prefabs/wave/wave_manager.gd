@@ -173,6 +173,7 @@ func spawn_wave(wave: Wave) -> bool:
 	
 	waves_spawned += 1
 	wave_spawned.emit(wave)
+	Events.wave_spawned.emit(wave)
 	return true
 
 

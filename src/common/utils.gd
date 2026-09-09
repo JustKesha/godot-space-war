@@ -3,6 +3,26 @@ class_name Utils
 extends Node
 
 
+# --- Strings ------------------------------------------------------------------
+
+static func get_ascii_progress_bar(
+	progress: float,
+	width: int = 10,
+	char_fill: String = "#",
+	char_empty: String = "-",
+	bracket_left: String = "",
+	bracket_right: String = "",
+	) -> String:
+	progress = clampf(progress, 0.0, 1.0)
+	
+	var count_fill := int(progress * width)
+	var count_empty := width - count_fill
+	var track_filled := char_fill.repeat(count_fill)
+	var track_empty := char_empty.repeat(count_empty)
+	
+	return bracket_left + track_filled + track_empty + bracket_right
+
+
 # --- Instance Signatures ------------------------------------------------------
 
 const SIGNATURE_META_NAME: String = "signature"

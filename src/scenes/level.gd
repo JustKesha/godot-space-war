@@ -12,6 +12,7 @@ extends Node3D
 @export var drift_affect_ratio_obstacles: float = 1.0
 @export var drift_affect_ratio_combatants: float = 1.0
 
+@onready var hud: HUD = %HUD
 @onready var projectiles: InstancePoolManager3D = %Projectiles
 @onready var obstacles: InstancePoolManager3D = %Obstacles
 @onready var combatants: InstancePoolManager3D = %Combatants
