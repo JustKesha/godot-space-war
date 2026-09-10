@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bqpvtssfslooi" path="res://prefabs/entity/durable/obstacle/obstacle.tscn" id="4_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://dvbwcrsuwdxyr" path="res://prefabs/entity/durable/obstacle/combatant/combatant.tscn" id="5_2r41h"]
 [ext_resource type="Script" uid="uid://bh4thtbuxuxb0" path="res://prefabs/wave/wave_token_manager.gd" id="5_ppgk2"]
-[ext_resource type="PackedScene" uid="uid://5i6qwtlpgnhy" path="res://prefabs/ui/hud.tscn" id="10_olg7q"]
+[ext_resource type="PackedScene" uid="uid://5i6qwtlpgnhy" path="res://prefabs/ui/hud/hud.tscn" id="10_olg7q"]
 
 [node name="Level" type="Node3D" unique_id=436446468]
 script = ExtResource("1_2q6dc")

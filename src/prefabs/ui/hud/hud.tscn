@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://5i6qwtlpgnhy"]
 
-[ext_resource type="Script" uid="uid://c8k7g50kprv1m" path="res://prefabs/ui/hud.gd" id="1_cxp5x"]
+[ext_resource type="Script" uid="uid://c8k7g50kprv1m" path="res://prefabs/ui/hud/hud.gd" id="1_cxp5x"]
 [ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="3_cxp5x"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1791550904]
