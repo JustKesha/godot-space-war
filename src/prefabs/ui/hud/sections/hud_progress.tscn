@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dar5l0rtyva57"]
+
+[ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="1_fb2bm"]
+[ext_resource type="Script" uid="uid://dwrfm6d7g78jf" path="res://prefabs/ui/hud/sections/hud_progress.gd" id="1_y7xcq"]
+
+[node name="Progress" type="VBoxContainer" unique_id=794946009]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.5
+offset_right = 154.5
+offset_bottom = 43.0
+grow_horizontal = 2
+script = ExtResource("1_y7xcq")
+
+[node name="Bar" type="Label" parent="." unique_id=2064315851]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "░░░░░░░░░░░░░░░░░░░░"
+label_settings = ExtResource("1_fb2bm")
+horizontal_alignment = 1
+
+[node name="Info" type="Label" parent="." unique_id=679562088]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0%"
+label_settings = ExtResource("1_fb2bm")
+horizontal_alignment = 1

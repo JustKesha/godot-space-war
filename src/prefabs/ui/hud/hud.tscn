@@ -1,29 +1,16 @@
 [gd_scene format=3 uid="uid://5i6qwtlpgnhy"]
 
 [ext_resource type="Script" uid="uid://c8k7g50kprv1m" path="res://prefabs/ui/hud/hud.gd" id="1_cxp5x"]
-[ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="3_cxp5x"]
+[ext_resource type="PackedScene" uid="uid://dar5l0rtyva57" path="res://prefabs/ui/hud/sections/hud_progress.tscn" id="2_1lcdp"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1791550904]
 script = ExtResource("1_cxp5x")
 
-[node name="Progress" type="VBoxContainer" parent="." unique_id=1673892304]
+[node name="Progress" parent="." unique_id=794946009 instance=ExtResource("2_1lcdp")]
 unique_name_in_owner = true
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 10.0
-offset_bottom = 62.0
-grow_horizontal = 2
-
-[node name="ProgressBar" type="Label" parent="Progress" unique_id=1723762660]
-unique_name_in_owner = true
-layout_mode = 2
-text = "███░░░░░░░░░░░░░░░░░"
-label_settings = ExtResource("3_cxp5x")
-horizontal_alignment = 1
-
-[node name="ProgressInfo" type="Label" parent="Progress" unique_id=1348924239]
-unique_name_in_owner = true
-layout_mode = 2
-text = "15%"
-label_settings = ExtResource("3_cxp5x")
-horizontal_alignment = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.5
+offset_right = 154.5
+offset_bottom = 43.0
