@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://chr3sojdtqytk"]
+
+[ext_resource type="Script" uid="uid://c8lhhxn10k6rj" path="res://prefabs/ui/hud/sections/hud_debug.gd" id="1_jtu1l"]
+[ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="2_ucmgm"]
+
+[node name="Debug" type="VBoxContainer" unique_id=794946009]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -106.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 26.0
+grow_horizontal = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_jtu1l")
+
+[node name="Entities" type="Label" parent="." unique_id=209844729]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 2
+text = "Entities: 0"
+label_settings = ExtResource("2_ucmgm")
+horizontal_alignment = 2
+
+[node name="Projectiles" type="Label" parent="." unique_id=2006182511]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 2
+text = "Projectiles: 0"
+label_settings = ExtResource("2_ucmgm")
+horizontal_alignment = 2
+
+[node name="Obstacles" type="Label" parent="." unique_id=838844357]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 2
+text = "Obstacles: 0"
+label_settings = ExtResource("2_ucmgm")
+horizontal_alignment = 2
+
+[node name="Combatants" type="Label" parent="." unique_id=638918335]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 2
+text = "Combatants: 0"
+label_settings = ExtResource("2_ucmgm")
+horizontal_alignment = 2

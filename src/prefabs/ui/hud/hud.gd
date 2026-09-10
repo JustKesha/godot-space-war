@@ -3,4 +3,5 @@ class_name HUD
 extends CanvasLayer
 
 
-@onready var progress: VBoxContainer = %Progress
+@onready var progress: HUDProgressSection = %Progress
+@onready var debug: HUDDebugSection = %Debug

@@ -16,7 +16,6 @@ script = ExtResource("1_y7xcq")
 [node name="Bar" type="Label" parent="." unique_id=2064315851]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
 text = "░░░░░░░░░░░░░░░░░░░░"
 label_settings = ExtResource("1_fb2bm")
 horizontal_alignment = 1
@@ -24,7 +23,6 @@ horizontal_alignment = 1
 [node name="Info" type="Label" parent="." unique_id=679562088]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
 text = "0%"
 label_settings = ExtResource("1_fb2bm")
 horizontal_alignment = 1

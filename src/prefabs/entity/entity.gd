@@ -39,6 +39,7 @@ func _ready():
 	_update_signature()
 	_update_team()
 	_update_collision()
+	Events.entity_spawned.emit(self)
 
 
 func _on_hurtbox_damage_taken(_amount: float, source: HitComponent3D):

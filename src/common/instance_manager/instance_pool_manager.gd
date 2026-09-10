@@ -81,6 +81,16 @@ static func _set_instance_active(instance: Node3D, active: bool = true):
 		instance.hide.call_deferred()
 
 
+func get_all_instances() -> Array[Node3D]:
+	var all_instances: Array[Node3D] = active_instances.duplicate()
+	all_instances.append_array(pooled_instances)
+	return all_instances
+
+
+func get_total_instance_count() -> int:
+	return len(active_instances) + len(pooled_instances)
+
+
 func trim(limit: int = -1) -> int:
 	if limit < 0:
 		limit = pool_size_min

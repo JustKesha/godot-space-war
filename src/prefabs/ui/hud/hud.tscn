@@ -2,15 +2,13 @@
 
 [ext_resource type="Script" uid="uid://c8k7g50kprv1m" path="res://prefabs/ui/hud/hud.gd" id="1_cxp5x"]
 [ext_resource type="PackedScene" uid="uid://dar5l0rtyva57" path="res://prefabs/ui/hud/sections/hud_progress.tscn" id="2_1lcdp"]
+[ext_resource type="PackedScene" uid="uid://chr3sojdtqytk" path="res://prefabs/ui/hud/sections/hud_debug.tscn" id="3_lk3vr"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1791550904]
 script = ExtResource("1_cxp5x")
 
 [node name="Progress" parent="." unique_id=794946009 instance=ExtResource("2_1lcdp")]
 unique_name_in_owner = true
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -154.5
-offset_right = 154.5
-offset_bottom = 43.0
+
+[node name="Debug" parent="." unique_id=1422423607 instance=ExtResource("3_lk3vr")]
+unique_name_in_owner = true
