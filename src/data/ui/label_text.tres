@@ -3,4 +3,5 @@
 [ext_resource type="FontFile" uid="uid://dxm30n3oerqam" path="res://assets/fonts/PressStart2P-Regular.ttf" id="1_kj6m2"]
 
 [resource]
+line_spacing = 6.0
 font = ExtResource("1_kj6m2")

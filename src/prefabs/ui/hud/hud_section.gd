@@ -29,7 +29,7 @@ func _on_updated():
 
 
 func update():
-	if not is_inside_tree():
+	if not is_inside_tree() or not is_instance_valid(Game.current_level):
 		return
 	_on_updated()
 	updated.emit()

@@ -14,6 +14,7 @@ offset_bottom = 26.0
 grow_horizontal = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 6
 script = ExtResource("1_jtu1l")
 
 [node name="Entities" type="Label" parent="." unique_id=209844729]

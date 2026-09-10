@@ -17,10 +17,7 @@ func _on_wave_spawned(_wave: Wave):
 
 
 func _on_updated():
-	var progress := ( 
-		Game.current_level.wave_manager.progress
-		if is_instance_valid(Game.current_level) else 0.0
-		)
+	var progress := Game.current_level.wave_manager.progress
 	
-	bar.text = Utils.get_ascii_progress_bar(progress, 20, "█", "░")
-	info.text = str(int(progress * 100)) + '%'
+	bar.text = Utils.get_ascii_progress_bar(progress, 20, "#", "-", "[", "]")
+	info.text = str(int(progress * 100)) + "%"

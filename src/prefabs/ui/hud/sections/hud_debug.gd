@@ -25,9 +25,6 @@ func _on_entity_destroyed(_entity: Entity3D, _killer_signature: int):
 func _on_updated():
 	var level := Game.current_level
 	
-	if not is_instance_valid(level):
-		return
-	
 	entities.text = "Entities: " + str(get_tree().get_node_count_in_group("entities"))
 	projectiles.text = "Projectiles: " + str(level.projectiles.get_total_instance_count())
 	obstacles.text = "Obstacles: " + str(level.obstacles.get_total_instance_count())
