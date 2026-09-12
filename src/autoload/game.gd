@@ -8,6 +8,17 @@ var debug_mode: DebugMode:
 	set(value):
 		debug_mode = value
 		_apply_debug()
+var show_debug_hints: bool:
+	set(value):
+		if value == show_debug_hints:
+			return
+		show_debug_hints = value
+		
+		get_tree().debug_collisions_hint = show_debug_hints
+		get_tree().debug_navigation_hint = show_debug_hints
+		get_tree().debug_paths_hint = show_debug_hints
+		
+		Utils.update_debug_hints(get_tree().root)
 var current_level: Level:
 	set(value):
 		current_level = value
@@ -21,14 +32,17 @@ func _apply_debug():
 	match debug_mode:
 		DebugMode.OFF:
 			current_level.hud.debug.hide()
+			show_debug_hints = false
 		DebugMode.FEW:
 			current_level.hud.debug.show()
 			current_level.hud.debug_performance.show()
 			current_level.hud.debug_entities.hide()
+			show_debug_hints = false
 		DebugMode.ALL:
 			current_level.hud.debug.show()
 			current_level.hud.debug_performance.show()
 			current_level.hud.debug_entities.show()
+			show_debug_hints = true
 
 
 func _input(event: InputEvent):

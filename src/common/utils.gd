@@ -23,6 +23,34 @@ static func get_ascii_progress_bar(
 	return bracket_left + track_filled + track_empty + bracket_right
 
 
+# --- Nodes --------------------------------------------------------------------
+
+static func update_debug_hints(node: Node, recursive: bool = true):
+	if not is_instance_valid(node) or not node.is_inside_tree():
+		return
+	
+	var is_hint_node: bool = (
+		node is CollisionShape2D or
+		node is CollisionPolygon2D or
+		node is CollisionShape3D or
+		node is CollisionPolygon3D or
+		node is NavigationRegion2D or
+		node is NavigationRegion3D or
+		node is Path2D or
+		node is Path3D
+		)
+	
+	if is_hint_node:
+		var parent := node.get_parent()
+		if parent:
+			parent.remove_child(node)
+			parent.add_child(node)
+	
+	if recursive:
+		for child in node.get_children():
+			update_debug_hints(child, true)
+
+
 # --- Instance Signatures ------------------------------------------------------
 
 const SIGNATURE_META_NAME: String = "signature"
