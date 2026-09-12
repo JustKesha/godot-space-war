@@ -4,4 +4,5 @@ extends CanvasLayer
 
 
 @onready var progress: HUDProgressSection = %Progress
-@onready var debug: HUDDebugSection = %Debug
+@onready var debug: Control = %Debug
+@onready var debug_entities: HUDEntitiesSection = %Entities

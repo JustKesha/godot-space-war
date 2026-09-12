@@ -1,4 +1,4 @@
-class_name HUDDebugSection
+class_name HUDEntitiesSection
 extends HUDSection
 
 

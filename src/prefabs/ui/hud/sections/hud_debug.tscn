@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c8lhhxn10k6rj" path="res://prefabs/ui/hud/sections/hud_debug.gd" id="1_jtu1l"]
 [ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="2_ucmgm"]
 
-[node name="Debug" type="VBoxContainer" unique_id=794946009]
+[node name="Entities" type="VBoxContainer" unique_id=794946009]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
