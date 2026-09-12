@@ -10,6 +10,7 @@ script = ExtResource("1_cxp5x")
 
 [node name="Progress" parent="." unique_id=794946009 instance=ExtResource("2_1lcdp")]
 unique_name_in_owner = true
+start_visibility = false
 
 [node name="Debug" type="VBoxContainer" parent="." unique_id=148269716]
 unique_name_in_owner = true
@@ -26,7 +27,9 @@ theme_override_constants/separation = 6
 [node name="Performance" parent="Debug" unique_id=775963873 instance=ExtResource("3_dsf3i")]
 unique_name_in_owner = true
 layout_mode = 2
+start_visibility = false
 
 [node name="Entities" parent="Debug" unique_id=1422423607 instance=ExtResource("3_lk3vr")]
 unique_name_in_owner = true
 layout_mode = 2
+start_visibility = false
