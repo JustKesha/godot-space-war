@@ -8,6 +8,7 @@ signal updated
 
 @export var start_visibility: bool = true
 @export_group("Update", "update")
+@export var update_while_hidden: bool
 @export var update_on_ready: bool = true
 @export var update_on_visibility_changed: bool = true
 
@@ -28,8 +29,14 @@ func _on_updated():
 	pass
 
 
+func can_update() -> bool:
+	if not update_while_hidden and not is_visible_in_tree():
+		return false
+	return is_inside_tree() and is_instance_valid(Game.current_level)
+
+
 func update():
-	if not is_inside_tree() or not is_instance_valid(Game.current_level):
+	if not can_update():
 		return
 	_on_updated()
 	updated.emit()
