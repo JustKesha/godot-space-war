@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bieombn24y73d"]
+
+[ext_resource type="Script" uid="uid://c1tnr6ieqme4t" path="res://prefabs/ui/hud/sections/hud_performance.gd" id="1_st0yj"]
+[ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="2_kbdyk"]
+
+[node name="Performance" type="VBoxContainer" unique_id=775963873]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -106.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 26.0
+grow_horizontal = 0
+script = ExtResource("1_st0yj")
+update_on_interval_sec = 1.0
+
+[node name="FPS" type="Label" parent="." unique_id=95366338]
+unique_name_in_owner = true
+layout_mode = 2
+text = "FPS: 0"
+label_settings = ExtResource("2_kbdyk")
+horizontal_alignment = 2

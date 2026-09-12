@@ -56,4 +56,3 @@ func update():
 	time_since_update = 0.0
 	_on_updated()
 	updated.emit()
-	print('HUD SECTION UPDATED: ', name)

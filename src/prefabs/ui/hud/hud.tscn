@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c8k7g50kprv1m" path="res://prefabs/ui/hud/hud.gd" id="1_cxp5x"]
 [ext_resource type="PackedScene" uid="uid://dar5l0rtyva57" path="res://prefabs/ui/hud/sections/hud_progress.tscn" id="2_1lcdp"]
-[ext_resource type="PackedScene" uid="uid://chr3sojdtqytk" path="res://prefabs/ui/hud/sections/hud_debug.tscn" id="3_lk3vr"]
+[ext_resource type="PackedScene" uid="uid://bieombn24y73d" path="res://prefabs/ui/hud/sections/hud_performance.tscn" id="3_dsf3i"]
+[ext_resource type="PackedScene" uid="uid://chr3sojdtqytk" path="res://prefabs/ui/hud/sections/hud_entities.tscn" id="3_lk3vr"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1791550904]
 script = ExtResource("1_cxp5x")
@@ -21,6 +22,10 @@ offset_right = -10.0
 offset_bottom = 92.0
 grow_horizontal = 0
 theme_override_constants/separation = 6
+
+[node name="Performance" parent="Debug" unique_id=775963873 instance=ExtResource("3_dsf3i")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="Entities" parent="Debug" unique_id=1422423607 instance=ExtResource("3_lk3vr")]
 unique_name_in_owner = true

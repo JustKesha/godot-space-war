@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://chr3sojdtqytk"]
 
-[ext_resource type="Script" uid="uid://c8lhhxn10k6rj" path="res://prefabs/ui/hud/sections/hud_debug.gd" id="1_jtu1l"]
+[ext_resource type="Script" uid="uid://c8lhhxn10k6rj" path="res://prefabs/ui/hud/sections/hud_entities.gd" id="1_jtu1l"]
 [ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="2_ucmgm"]
 
 [node name="Entities" type="VBoxContainer" unique_id=794946009]
