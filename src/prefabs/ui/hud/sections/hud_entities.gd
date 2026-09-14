@@ -6,6 +6,7 @@ extends HUDSection
 @onready var projectiles: Label = %Projectiles
 @onready var obstacles: Label = %Obstacles
 @onready var combatants: Label = %Combatants
+@onready var players: Label = %Players
 
 
 func _ready():
@@ -29,3 +30,4 @@ func _on_updated():
 	projectiles.text = "Projectiles: " + str(level.projectiles.get_total_instance_count())
 	obstacles.text = "Obstacles: " + str(level.obstacles.get_total_instance_count())
 	combatants.text = "Combatants: " + str(level.combatants.get_total_instance_count())
+	players.text = "Players: " + str(len(level.players.active_instances))
