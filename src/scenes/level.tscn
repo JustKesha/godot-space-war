@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bqpvtssfslooi" path="res://prefabs/entity/durable/obstacle/obstacle.tscn" id="4_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://dvbwcrsuwdxyr" path="res://prefabs/entity/durable/obstacle/combatant/combatant.tscn" id="5_2r41h"]
 [ext_resource type="Script" uid="uid://bh4thtbuxuxb0" path="res://prefabs/wave/wave_token_manager.gd" id="5_ppgk2"]
+[ext_resource type="Script" uid="uid://bcdhecqxnljky" path="res://common/instance_manager/instance_manager.gd" id="7_8c41q"]
+[ext_resource type="PackedScene" uid="uid://d3e6vrcfgchg6" path="res://prefabs/entity/durable/obstacle/combatant/player/player.tscn" id="8_olg7q"]
 [ext_resource type="PackedScene" uid="uid://5i6qwtlpgnhy" path="res://prefabs/ui/hud/hud.tscn" id="10_olg7q"]
 
 [node name="Level" type="Node3D" unique_id=436446468]
@@ -36,6 +38,12 @@ unique_name_in_owner = true
 script = ExtResource("2_w8frs")
 packed_scene = ExtResource("5_2r41h")
 metadata/_custom_type_script = "uid://cp0y83q487vi8"
+
+[node name="Players" type="Node3D" parent="." unique_id=1635588967]
+unique_name_in_owner = true
+script = ExtResource("7_8c41q")
+packed_scene = ExtResource("8_olg7q")
+metadata/_custom_type_script = "uid://bcdhecqxnljky"
 
 [node name="WaveManager" type="Node3D" parent="." unique_id=1884949723]
 unique_name_in_owner = true

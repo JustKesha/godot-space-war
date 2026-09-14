@@ -16,6 +16,7 @@ extends Node3D
 @onready var projectiles: InstancePoolManager3D = %Projectiles
 @onready var obstacles: InstancePoolManager3D = %Obstacles
 @onready var combatants: InstancePoolManager3D = %Combatants
+@onready var players: InstanceManager3D = %Players
 @onready var wave_manager: WaveManager3D = %WaveManager
 
 
@@ -50,22 +51,17 @@ func get_projectiles(exclude_teams: Array[CombatArea3D.Team] = []) -> Array[Proj
 	var out: Array[Projectile3D]
 	out.assign(
 		projectiles.active_instances if exclude_teams.is_empty() else
-		projectiles.active_instances.filter(func(projectile): return not exclude_teams.has(projectile.team))
+		projectiles.active_instances.filter(func(p): return not exclude_teams.has(p.team))
 		)
 	return out
 
 
-func get_obstacles(exclude_teams: Array[CombatArea3D.Team] = [],
-	include_combatants: bool = false) -> Array[Obstacle3D]:
+func get_obstacles(exclude_teams: Array[CombatArea3D.Team] = []) -> Array[Obstacle3D]:
 	var out: Array[Obstacle3D]
-	
-	out.assign(obstacles.active_instances)
-	
-	if include_combatants:
-		out.append_array(get_combatants(exclude_teams))
-	if exclude_teams:
-		out = out.filter(func(obstacle): return not exclude_teams.has(obstacle.team))
-	
+	out.assign(
+		obstacles.active_instances if exclude_teams.is_empty() else
+		obstacles.active_instances.filter(func(o): return not exclude_teams.has(o.team))
+		)
 	return out
 
 
@@ -78,14 +74,26 @@ func get_combatants(exclude_teams: Array[CombatArea3D.Team] = []) -> Array[Comba
 	return out
 
 
+func get_players(exclude_teams: Array[CombatArea3D.Team] = []) -> Array[Player3D]:
+	var out: Array[Player3D]
+	out.assign(
+		players.active_instances if exclude_teams.is_empty() else
+		players.active_instances.filter(func(p): return not exclude_teams.has(p.team))
+		)
+	return out
+
+
 func clean():
 	projectiles.trim()
 	obstacles.trim()
+	combatants.trim()
 
 
 func clear():
 	projectiles.clear()
 	obstacles.clear()
+	combatants.clear()
+	players.clear()
 
 
 func reset():

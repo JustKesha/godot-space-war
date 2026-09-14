@@ -45,6 +45,7 @@ entities=""
 durable_entities=""
 obstacles=""
 combatants=""
+players=""
 
 [input]
 
