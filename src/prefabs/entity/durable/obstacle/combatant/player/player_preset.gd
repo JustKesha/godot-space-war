@@ -3,6 +3,7 @@ class_name PlayerPreset3D
 extends CombatantPreset3D
 
 
+@export var name: String = "Player_1"
 @export_group("Controller", "controller")
 @export var controller_controls: Dictionary[CombatantPlayerController.Controls, String] = {
 	CombatantPlayerController.Controls.LEFT: "ui_left",
@@ -30,6 +31,9 @@ func apply(entity: Entity3D) -> bool:
 	if not player:
 		push_error("Could not apply preset. Recieved entity is not a player.")
 		return false
+	
+	if name:
+		player.name = name
 	
 	player.controller.controls = controller_controls
 	player.controller.disabled = controller_disabled
