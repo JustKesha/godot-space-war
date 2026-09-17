@@ -23,6 +23,22 @@ static func get_ascii_progress_bar(
 	return bracket_left + track_filled + track_empty + bracket_right
 
 
+static func format_number(value: float, max_decimals: int = -1,
+	round_to_nearest: bool = true, inf_str: String = "INF") -> String:
+	if is_inf(value):
+		return ("" if value > 0 else "-") + inf_str
+	if max_decimals >= 0:
+		if round_to_nearest:
+			value = snappedf(value, pow(10, -max_decimals))
+		else:
+			var multiplier: float = pow(10, max_decimals)
+			value = floorf(value * multiplier) / multiplier
+	
+	if is_equal_approx(value, round(value)):
+		return str(int(value))
+	return str(value)
+
+
 # --- Nodes --------------------------------------------------------------------
 
 static func update_debug_hints(node: Node, recursive: bool = true):

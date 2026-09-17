@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dar5l0rtyva57" path="res://prefabs/ui/hud/sections/hud_progress.tscn" id="2_1lcdp"]
 [ext_resource type="PackedScene" uid="uid://bieombn24y73d" path="res://prefabs/ui/hud/sections/hud_performance.tscn" id="3_dsf3i"]
 [ext_resource type="PackedScene" uid="uid://chr3sojdtqytk" path="res://prefabs/ui/hud/sections/hud_entities.tscn" id="3_lk3vr"]
+[ext_resource type="PackedScene" uid="uid://u78xkt4dfwq3" path="res://prefabs/ui/hud/sections/hud_players.tscn" id="5_3f6uq"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1791550904]
 script = ExtResource("1_cxp5x")
@@ -11,6 +12,9 @@ script = ExtResource("1_cxp5x")
 [node name="Progress" parent="." unique_id=794946009 instance=ExtResource("2_1lcdp")]
 unique_name_in_owner = true
 start_visibility = false
+
+[node name="Players" parent="." unique_id=370255380 instance=ExtResource("5_3f6uq")]
+unique_name_in_owner = true
 
 [node name="Debug" type="VBoxContainer" parent="." unique_id=148269716]
 unique_name_in_owner = true

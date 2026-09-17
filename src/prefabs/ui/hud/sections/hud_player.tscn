@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c2xkoyxmwplos"]
+
+[ext_resource type="Script" uid="uid://bf6tb5abe2j0n" path="res://prefabs/ui/hud/sections/hud_player.gd" id="1_ptguj"]
+[ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="2_2lf0w"]
+
+[node name="Player" type="VBoxContainer" unique_id=794946009]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 234.0
+offset_bottom = 114.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+script = ExtResource("1_ptguj")
+
+[node name="Nickname" type="Label" parent="." unique_id=209844729]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Player 1"
+label_settings = ExtResource("2_2lf0w")
+
+[node name="Health" type="Label" parent="." unique_id=2006182511]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 2
+text = "HP: 1"
+label_settings = ExtResource("2_2lf0w")
