@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c3hyl41l2r12i" path="res://prefabs/ui/hud/sections/hud_players.gd" id="1_ou50x"]
 
 [node name="Players" type="VBoxContainer" unique_id=370255380]
+custom_maximum_size = Vector2(1, -1)
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 10.0
