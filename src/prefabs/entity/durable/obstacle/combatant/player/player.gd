@@ -5,3 +5,10 @@ extends Combatant3D
 
 @onready var score: ScoreComponent = %Score
 @onready var controller: CombatantPlayerController = %Controller
+
+
+func _dispose():
+	if Game.current_level:
+		Game.current_level.players.dispose(self)
+	else:
+		super()
