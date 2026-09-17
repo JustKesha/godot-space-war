@@ -3,9 +3,9 @@ class_name ScoreComponent
 extends Node
 
 
-signal score_changed(new_value: float)
-signal score_increased(by: float)
-signal score_decreased(by: float)
+signal value_changed(new_value: float)
+signal value_increased(by: float)
+signal value_decreased(by: float)
 
 enum SourceType {
 	DESTOYED_COMBATANT = 0,
@@ -23,11 +23,11 @@ enum SourceType {
 		
 		value = new_value
 		
-		score_changed.emit(new_value)
+		value_changed.emit(new_value)
 		if new_value > old_value:
-			score_increased.emit(new_value - old_value)
+			value_increased.emit(new_value - old_value)
 		elif new_value < old_value:
-			score_decreased.emit(old_value - new_value)
+			value_decreased.emit(old_value - new_value)
 @export var multiplier: float = 1.0
 @export var multipliers: Dictionary[SourceType, float] = {
 	SourceType.DESTOYED_COMBATANT: 1.0,
