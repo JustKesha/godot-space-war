@@ -6,8 +6,10 @@ extends Node
 signal value_changed(new_value: float)
 signal value_increased(by_amount: float)
 signal value_decreased(by_amount: float)
-signal maximum_value_reached()
 signal minimum_value_reached()
+signal minimum_value_changed()
+signal maximum_value_reached()
+signal maximum_value_changed()
 
 enum ModifyOperation {
 	INCREASE = 1,
@@ -18,8 +20,20 @@ enum ModifyOperation {
 @export var start_ratio: float = 0.0
 @export var start_bonus: float = 1.0
 @export_group("Limits", "value")
-@export var value_min: float = 0
-@export var value_max: float = INF
+@export var value_min: float = 0:
+	set(value):
+		if value == value_min:
+			return
+		value_min = value
+		value = value
+		minimum_value_changed.emit()
+@export var value_max: float = INF:
+	set(value):
+		if value == value_max:
+			return
+		value_max = value
+		value = value
+		maximum_value_changed.emit()
 @export_group("Increase", "increase")
 @export var increase_ratio: float = 1.0
 @export var increase_threshold: float = 0.0
