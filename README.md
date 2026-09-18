@@ -11,7 +11,7 @@
 >This project is in an early active-development stage and its foundation may not be fully formed.  
 >This includes but is not limited to possible changes to the architecture and class APIs in the near future.  
 
-This is an arcade shooter game being developed on [Godot 4](https://github.com/godotengine/godot) with the idea of synergies and content variety,
+This is an arcade shooter game being developed on [Godot 4.7](https://github.com/godotengine/godot) with the idea of synergies and content variety,
 inspired by games like [The Binding of Isaac](https://store.steampowered.com/app/250900/The_Binding_of_Isaac_Rebirth) and [Inscryption](https://store.steampowered.com/app/1092790/Inscryption).
 
 ## Direction
@@ -22,33 +22,34 @@ The planned gameplay mechanics are roughly outlined below & in the [progress sec
 ### Game-loop
 
 As of right now, the main game loop is seen by me as a semi-endless cycle of:
-1. Fight off waves of enemies
+1. Fight off waves of obstacles
 1. Upgrade
-1. Repeat
+1. Repeat until dead or end goal reached
 
-Except instead of going in the classic endless scroller approach, I'd like to do something similar to The Binding of Isaac or Inscryption with runs being split into clear sections/locations each with its own boss fight and perhaps even an option to take different routes.  
+Except instead of going in the classic endless scroller approach, I'd like to do something similar to The Binding of Isaac or Inscryption with runs being split into clear sections / locations each with its own boss fight and perhaps even an option to take different routes.  
 
 The upgrades however is (at least to me) the most interesting part in this topic and I'm still deciding on the approach.  
-I personally really enjoy the deck building mechanics used in Inscryption and the great amount of possible synergies given by The Binding of Isaac.  
+I personally really enjoy the deck & card building mechanics used in Inscryption and the great amount of possible synergies given by The Binding of Isaac.  
 
 ### Theme
 
-The project theme is yet to be settled on but if nothing changes, it will receive the same arcady/space theme as in the game jam version presented below.
+The project theme is yet to be settled on but if nothing changes, it will receive the same arcady / space theme as in the game jam version presented below.
 
-<img alt="older game-jam project version" src="preview/game_jam_version.gif" width="50%" />
+<img alt="older game-jam project version" src="./preview/game_jam_version.gif" height="200px" />
 
 ## Progress
 
 - [x] Foundation
-- [ ] Playable
+- [x] Playable
   - [x] [Wave manager](https://github.com/JustKesha/godot-space-war/blob/main/src/prefabs/wave/wave_manager.gd)
   - [x] [Early test build](https://github.com/JustKesha/godot-space-war/releases#release-v0.0.1)
   - [x] [Score system](./src/prefabs/score_component.gd)
-  - [ ] UI/HUD
+  - [x] [UI/HUD](./src/prefabs/ui/hud/)
 - [ ] Expansion
-  - [ ] Stat system
-  - [ ] Upgrades / Progression system
+  - [ ] Level progression
+  - [ ] Upgrades / Character progression
 - [ ] Polish
+  - [ ] Menu
   - [ ] Animations
   - [ ] VFX & SFX
   - [ ] Shaders & Camera effects
@@ -65,7 +66,7 @@ If you're new to Godot or just wanna learn more - you can contact me on [Discord
 
 ### Requirements
 
-- Godot 4.7 or higher
+- Godot 4.7
 - [Assets content](#-assets-content)
 
 <img alt="sticker" src="https://media.tenor.com/G32hUnhj_RwAAAAi/waze-driving.gif" width="50px" />
@@ -106,7 +107,8 @@ To keep code clean and prevent pieces from getting tangled up, the project gener
 Child components should never directly tell their parents what to do.  
 Instead, they emit a signal, and the parent chooses how to respond.  
 - **Calls Down:**  
-Parent objects can directly tell their child components to do something by calling a function.  
+Parent objects can directly tell their child components to do something by calling a function.
+
 >[!NOTE]
 >This is a flexible guideline rather than a strict, unbreakable rule.  
 >Use best judgment if a specific situation requires a different approach.  
@@ -127,6 +129,13 @@ These files hold settings and variables. Instead of changing the code, settings 
 
 To handle tracking and data validation securely across separate instances, the project utilizes an internal signature pipeline via metadata.
 
-* **Decoupled Ownership:** Projectiles and specialized sub-components (like hitboxes) inherit a unique signature identifier from their parent shooter or creator node upon instantiation.
-* **Memory Safety:** Instead of exposing or querying fragile, raw node references that might turn into corrupted memory addresses upon being freed (`queue_free()`), systems pass around raw, stable signature integers.
-* **Unified Event Bus Integration:** Global hooks like `Events.entity_destroyed` leverage these integer signatures to seamlessly distribute kill-credit and parse combat logic in isolated modules like the [Score Component](./src/prefabs/score_component.gd).
+>[!NOTE]
+>This is important because of the [instance pooling](./src/common/instance_manager/instance_pool_manager.gd) used for most of the game objects (entities).  
+>The signatures as of writing this, use instance id's (which do not change on pooled objects) in pair with frame index.  
+
+- **Decoupled Ownership:**  
+Projectiles and specialized sub-components (like hitboxes) inherit a unique signature identifier from their parent shooter or creator node upon instantiation.  
+- **Memory Safety:**  
+Instead of exposing or querying fragile, raw node references that might turn into corrupted memory addresses upon being freed (`queue_free()`), systems pass around raw, stable signature integers.  
+- **Unified Event Bus Integration:**  
+Global hooks like `Events.entity_destroyed` leverage these integer signatures to seamlessly distribute kill-credit and parse combat logic in isolated modules like the [Score Component](./src/prefabs/score_component.gd).  
