@@ -1,6 +1,6 @@
 @icon("uid://u45ctku6sbsn")
 class_name Entity3D
-extends Node3D
+extends Area3D
 
 
 signal team_changed
@@ -23,6 +23,7 @@ signal destroyed(killer_signature: int)
 @export var destroy_on_damage_taken: bool = true
 @export var destroy_on_damage_dealt: bool = true
 
+@onready var collider: CollisionShape3D = %Collider
 @onready var movement: MovementComponent3D = %Movement
 @onready var hitbox: HitComponent3D = %Hitbox
 @onready var hitbox_collider: CollisionShape3D = %Hitbox/Collider
