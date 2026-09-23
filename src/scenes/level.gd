@@ -17,6 +17,7 @@ extends Node3D
 @onready var obstacles: InstancePoolManager3D = %Obstacles
 @onready var combatants: InstancePoolManager3D = %Combatants
 @onready var players: InstanceManager3D = %Players
+@onready var bounds: EntityBarrier3D = %Bounds
 @onready var wave_manager: WaveManager3D = %WaveManager
 
 
