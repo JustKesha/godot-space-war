@@ -59,8 +59,11 @@ static func update_debug_hints(node: Node, recursive: bool = true):
 	if is_hint_node:
 		var parent := node.get_parent()
 		if parent:
+			var original_owner = node.owner
 			parent.remove_child(node)
 			parent.add_child(node)
+			if original_owner:
+				node.set_deferred("owner", original_owner)
 	
 	if recursive:
 		for child in node.get_children():
