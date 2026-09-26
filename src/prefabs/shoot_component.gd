@@ -21,6 +21,9 @@ enum FireMode {
 	## Cycles through [member directions] one by one per [method shoot] call
 	## (ascending).
 	SEQUENTIAL,
+	## Cycles through [member directions] one by one per [method shoot] call
+	## back and forth (ascending).
+	SIQUENTIAL_PING_PONG,
 	## Picks a random direction from the [member directions] list every
 	## [method shoot] call.
 	RANDOM,
@@ -76,6 +79,7 @@ enum FireMode {
 		_on_cooldown_time_updated.call_deferred()
 
 var _current_direction_index: int
+var _curent_ping_pong_direction: int = 1
 var _cooldown_timer: Timer:
 	set(value):
 		if _cooldown_timer and _cooldown_timer.timeout.is_connected(_on_cooldown_end):
@@ -164,6 +168,18 @@ func _get_shoot_directions() -> Array[Vector3]:
 			var dir = directions[_current_direction_index]
 			output.append(_to_world_direction(dir))
 			_current_direction_index = (_current_direction_index + 1) % directions.size()
+		FireMode.SIQUENTIAL_PING_PONG:
+			var dir = directions[_current_direction_index]
+			output.append(_to_world_direction(dir))
+			_current_direction_index += _curent_ping_pong_direction
+			if directions.size() == 1:
+				_current_direction_index = 0
+			elif _current_direction_index >= directions.size():
+				_current_direction_index = directions.size() - 2
+				_curent_ping_pong_direction = -1
+			elif _current_direction_index < 0:
+				_current_direction_index = 1
+				_curent_ping_pong_direction = 1
 		FireMode.RANDOM:
 			output.append(_to_world_direction(directions.pick_random()))
 		_:
