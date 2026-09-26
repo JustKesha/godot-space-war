@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Space War"
+config/version="0.0.0"
 run/main_scene="uid://c4lxfb37u8u4r"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=120

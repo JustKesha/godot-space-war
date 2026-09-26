@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://chr3sojdtqytk" path="res://prefabs/ui/hud/sections/hud_entities.tscn" id="3_lk3vr"]
 [ext_resource type="PackedScene" uid="uid://b4bsrq32ienap" path="res://prefabs/ui/hud/sections/hud_pause.tscn" id="4_f7va4"]
 [ext_resource type="PackedScene" uid="uid://u78xkt4dfwq3" path="res://prefabs/ui/hud/sections/hud_players.tscn" id="5_3f6uq"]
+[ext_resource type="LabelSettings" uid="uid://dia6scvmwnppe" path="res://data/ui/label_text.tres" id="7_16ybw"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1791550904]
 script = ExtResource("1_cxp5x")
@@ -40,3 +41,25 @@ start_visibility = false
 unique_name_in_owner = true
 layout_mode = 2
 start_visibility = false
+
+[node name="Build" type="VBoxContainer" parent="." unique_id=38023114]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -33.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Version" type="Label" parent="Build" unique_id=747156108]
+unique_name_in_owner = true
+modulate = Color(0.5, 0.5, 0.5, 1)
+layout_mode = 2
+text = "v?.?.?"
+label_settings = ExtResource("7_16ybw")
+horizontal_alignment = 2
