@@ -67,7 +67,7 @@ enum FireMode {
 ## If [code]true[/code], the [member offset] is transformed by the [ShootComponent3D]'s
 ## basis (rotates with the node).
 @export var offset_local: bool = true
-@export_group("Spread")
+@export_group("Spread", "spread")
 ## Spread angles multiplier, when equal [code]0.0[/code] spread won't be applied.
 @export var spread_ratio: float = 0.0
 ## The maximum angular deviation (in degrees) along the horizontal (X) axis.
