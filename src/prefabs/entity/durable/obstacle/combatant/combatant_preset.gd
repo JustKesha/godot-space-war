@@ -50,6 +50,26 @@ extends ObstaclePreset3D
 			return
 		gun_offset_local = value
 		_on_changed()
+@export_subgroup("Spread", "gun_spread")
+@export var gun_spread_ratio: float = 0.0:
+	set(value):
+		if gun_spread_ratio == value:
+			return
+		gun_spread_ratio = value
+		_on_changed()
+@export_range(0.0, 90.0, 0.01) var gun_spread_vertical: float = 0.0:
+	set(value):
+		if gun_spread_vertical == value:
+			return
+		gun_spread_vertical = value
+		_on_changed()
+@export_range(0.0, 90.0, 0.01) var gun_spread_horizontal: float = 0.0:
+	set(value):
+		if gun_spread_horizontal == value:
+			return
+		gun_spread_horizontal = value
+		_on_changed()
+
 @export_subgroup("Cooldown", "gun")
 @export var gun_cooldown: float = 1.0:
 	set(value):
@@ -73,6 +93,9 @@ func apply(entity: Entity3D) -> bool:
 	combatant.gun.directions_relative = gun_directions_relative
 	combatant.gun.offset = gun_offset
 	combatant.gun.offset_local = gun_offset_local
+	combatant.gun.spread_ratio = gun_spread_ratio
+	combatant.gun.spread_vertical = gun_spread_vertical
+	combatant.gun.spread_horizontal = gun_spread_horizontal
 	combatant.gun.cooldown = gun_cooldown
 	
 	return super(entity)

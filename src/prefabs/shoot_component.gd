@@ -67,6 +67,13 @@ enum FireMode {
 ## If [code]true[/code], the [member offset] is transformed by the [ShootComponent3D]'s
 ## basis (rotates with the node).
 @export var offset_local: bool = true
+@export_group("Spread", "spread")
+## Spread angles multiplier, when equal [code]0.0[/code] spread won't be applied.
+@export var spread_ratio: float = 0.0
+## The maximum angular deviation (in degrees) along the horizontal (X) axis.
+@export_range(0.0, 90.0, 0.01) var spread_vertical: float = 0.0
+## The maximum angular deviation (in degrees) along the vertical (Y) axis.
+@export_range(0.0, 90.0, 0.01) var spread_horizontal: float = 0.0
 @export_group("Cooldown")
 ## The (default) minimum rest time-frame (in seconds) required between two successful
 ## [method shoot] calls. [br][br][b]Note:[/b] This can be by-passed, see [method shoot].
@@ -153,7 +160,7 @@ func _to_world_direction(local_dir: Vector3) -> Vector3:
 		return normalized_local
 
 
-func _get_shoot_directions() -> Array[Vector3]:
+func _get_shoot_directions(apply_spread: bool = true) -> Array[Vector3]:
 	var output: Array[Vector3] = []
 	
 	if directions.is_empty():
@@ -185,6 +192,10 @@ func _get_shoot_directions() -> Array[Vector3]:
 		_:
 			push_warning("Unknown fire mode: ", fire_mode, ".")
 	
+	if apply_spread:
+		for i in range(output.size()):
+			output[i] = _apply_spread_to_direction(output[i])
+	
 	return output
 
 
@@ -193,6 +204,25 @@ func _get_shoot_position() -> Vector3:
 	if offset_local:
 		return origin + (global_transform.basis * offset)
 	return origin + offset
+
+
+func _apply_spread_to_direction(dir: Vector3) -> Vector3:
+	var random_angle = randf() * TAU
+	var random_radius = sqrt(randf()) * spread_ratio
+	
+	var offset_x = cos(random_angle) * spread_horizontal * random_radius
+	var offset_y = sin(random_angle) * spread_vertical * random_radius
+	
+	var spread_angle_horizontal = clamp(offset_x, -90.0, 90.0)
+	var spread_angle_vertical = clamp(offset_y, -90.0, 90.0)
+	
+	var spread_vec = Vector3(
+		deg_to_rad(spread_angle_vertical),
+		deg_to_rad(spread_angle_horizontal),
+		0.0
+		)
+	
+	return (dir * Basis.from_euler(spread_vec)).normalized()
 
 
 func _fire_projectile(preset: ProjectilePreset3D,
