@@ -26,7 +26,7 @@ var time_since_update: float:
 func _ready():
 	visible = start_visibility
 	if update_on_ready:
-		update()
+		update.call_deferred()
 	visibility_changed.connect(_on_visibility_changed)
 
 
