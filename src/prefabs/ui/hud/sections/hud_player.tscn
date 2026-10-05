@@ -21,14 +21,14 @@ label_settings = ExtResource("2_2lf0w")
 
 [node name="Health" type="Label" parent="." unique_id=2006182511]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.5)
+modulate = Color(0.5, 0.5, 0.5, 1)
 layout_mode = 2
 text = "HP: 1"
 label_settings = ExtResource("2_2lf0w")
 
 [node name="Score" type="Label" parent="." unique_id=1155633783]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.5)
+modulate = Color(0.5, 0.5, 0.5, 1)
 layout_mode = 2
 text = "XP: 0"
 label_settings = ExtResource("2_2lf0w")

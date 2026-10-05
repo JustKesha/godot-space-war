@@ -2,8 +2,17 @@
 extends Node
 
 
+signal pause_changed()
+
 enum DebugMode { OFF, FEW, ALL }
 
+var paused: bool:
+	set(value):
+		if value == paused:
+			return
+		paused = value
+		get_tree().paused = paused
+		pause_changed.emit()
 var debug_mode: DebugMode:
 	set(value):
 		debug_mode = value
@@ -25,6 +34,24 @@ var current_level: Level:
 		_apply_debug()
 
 
+func _init():
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+
+
+func _input(event: InputEvent):
+	if not current_level:
+		return
+	
+	if event.is_action_pressed('restart'):
+		current_level.restart()
+	if event.is_action_pressed('pause'):
+		paused = not paused
+	elif event.is_action_pressed('debug_all'):
+		debug_mode = DebugMode.ALL if debug_mode != DebugMode.ALL else DebugMode.OFF
+	elif event.is_action_pressed('debug_few'):
+		debug_mode = DebugMode.FEW if debug_mode != DebugMode.FEW else DebugMode.OFF
+
+
 func _apply_debug():
 	if not current_level:
 		return
@@ -43,15 +70,3 @@ func _apply_debug():
 			current_level.hud.debug_performance.show()
 			current_level.hud.debug_entities.show()
 			show_debug_hints = true
-
-
-func _input(event: InputEvent):
-	if not current_level:
-		return
-	
-	if event.is_action_pressed('restart'):
-		current_level.restart()
-	elif event.is_action_pressed('debug_all'):
-		debug_mode = DebugMode.ALL if debug_mode != DebugMode.ALL else DebugMode.OFF
-	elif event.is_action_pressed('debug_few'):
-		debug_mode = DebugMode.FEW if debug_mode == DebugMode.OFF else DebugMode.OFF
