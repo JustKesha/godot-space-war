@@ -51,25 +51,24 @@ extends ObstaclePreset3D
 		gun_offset_local = value
 		_on_changed()
 @export_subgroup("Spread", "gun_spread")
-@export var gun_spread_ratio: float = 0.0:
+@export var gun_spread_ratio: float = 1.0:
 	set(value):
 		if gun_spread_ratio == value:
 			return
 		gun_spread_ratio = value
 		_on_changed()
-@export_range(0.0, 90.0, 0.01) var gun_spread_vertical: float = 0.0:
+@export_range(0.0, 180.0, 0.01) var gun_spread_vertical: float = 0.0:
 	set(value):
 		if gun_spread_vertical == value:
 			return
 		gun_spread_vertical = value
 		_on_changed()
-@export_range(0.0, 90.0, 0.01) var gun_spread_horizontal: float = 0.0:
+@export_range(0.0, 180.0, 0.01) var gun_spread_horizontal: float = 0.0:
 	set(value):
 		if gun_spread_horizontal == value:
 			return
 		gun_spread_horizontal = value
 		_on_changed()
-
 @export_subgroup("Cooldown", "gun")
 @export var gun_cooldown: float = 1.0:
 	set(value):

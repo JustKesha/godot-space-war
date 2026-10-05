@@ -69,11 +69,11 @@ enum FireMode {
 @export var offset_local: bool = true
 @export_group("Spread", "spread")
 ## Spread angles multiplier, when equal [code]0.0[/code] spread won't be applied.
-@export var spread_ratio: float = 0.0
+@export var spread_ratio: float = 1.0
 ## The maximum angular deviation (in degrees) along the horizontal (X) axis.
-@export_range(0.0, 90.0, 0.01) var spread_vertical: float = 0.0
+@export_range(0.0, 180.0, 0.01) var spread_vertical: float = 0.0
 ## The maximum angular deviation (in degrees) along the vertical (Y) axis.
-@export_range(0.0, 90.0, 0.01) var spread_horizontal: float = 0.0
+@export_range(0.0, 180.0, 0.01) var spread_horizontal: float = 0.0
 @export_group("Cooldown")
 ## The (default) minimum rest time-frame (in seconds) required between two successful
 ## [method shoot] calls. [br][br][b]Note:[/b] This can be by-passed, see [method shoot].
@@ -213,8 +213,8 @@ func _apply_spread_to_direction(dir: Vector3) -> Vector3:
 	var offset_x = cos(random_angle) * spread_horizontal * random_radius
 	var offset_y = sin(random_angle) * spread_vertical * random_radius
 	
-	var spread_angle_horizontal = clamp(offset_x, -90.0, 90.0)
-	var spread_angle_vertical = clamp(offset_y, -90.0, 90.0)
+	var spread_angle_horizontal = clamp(offset_x, -180.0, 180.0)
+	var spread_angle_vertical = clamp(offset_y, -180.0, 180.0)
 	
 	var spread_vec = Vector3(
 		deg_to_rad(spread_angle_vertical),
